@@ -17,9 +17,8 @@ if (!reduceMotion && "IntersectionObserver" in window) {
     { threshold: 0.12 },
   );
 
-  document.querySelectorAll(".identity article, .project, .principle").forEach((element) => {
+  document.querySelectorAll(".workbench-heading, .portal, .manifesto-copy, .manifesto-list li, .contact-panel").forEach((element) => {
     element.classList.add("reveal");
     observer.observe(element);
   });
 }
-
