@@ -1,0 +1,4 @@
+dist/
+.edge-qa*/
+homepage-*.png
+.DS_Store
