@@ -9,6 +9,8 @@ De publieke URL's worden over afzonderlijke projecten verdeeld:
 | `https://tuurh.be/` | `tuurh-home` |
 | `https://tuurh.be/me` | `tuurh-site` |
 | `https://tuurh.be/rbac` | `RBAC rights M365` |
+| `https://tuurh.be/blog` | `tuurh-blog` |
+| `https://tuurh.be/ms102` | `tuurh-ms102` |
 
 `tuurh-site` is dus geen oudere versie van deze website, maar de afzonderlijke
 site die onder `/me` wordt aangeboden. De routing gebeurt via de

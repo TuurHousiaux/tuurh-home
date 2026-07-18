@@ -3,7 +3,7 @@ import { stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 
-const root = new URL("../dist/", import.meta.url).pathname.replace(/^\/(.:\/)/, "$1");
+const root = decodeURIComponent(new URL("../dist/", import.meta.url).pathname).replace(/^\/(.:\/)/, "$1");
 const port = Number(process.env.PORT ?? 4173);
 const types = {
   ".css": "text/css; charset=utf-8",
@@ -33,4 +33,3 @@ createServer(async (request, response) => {
 }).listen(port, "127.0.0.1", () => {
   console.log(`Preview: http://127.0.0.1:${port}`);
 });
-

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Tuur Housiaux helpt mensen vooruit met heldere opleidingen, coaching en praktische tools rond Microsoft 365, Azure en systeembeheer." />
-    <meta name="theme-color" content="#f3eee4" />
-    <title>Tuur Housiaux — Mensen vooruithelpen met technologie.</title>
+    <meta name="description" content="tuurh.be — een werkplaats voor opleidingen, digitale tools en ideeën rond Microsoft-technologie." />
+    <meta name="theme-color" content="#11110f" />
+    <title>tuurh.be — Een werkplaats voor technologie</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" type="module"></script>
   </head>
@@ -21,9 +21,17 @@
         <a class="is-active" href="/" aria-current="page"><span>01</span>Home</a>
         <a href="/me/"><span>02</span>Over mij</a>
         <a href="/rbac/"><span>03</span>RBAC</a>
+        <a href="/blog/"><span>04</span>Blog</a>
+        <div class="nav-group">
+          <a class="nav-parent" href="/ms102/"><span>05</span>MS-102 <b aria-hidden="true">+</b></a>
+          <div class="nav-submenu" aria-label="MS-102 onderdelen">
+            <a href="/ms102/"><small>05.01</small>Vragen</a>
+            <a href="/rbac/"><small>05.02</small>RBAC</a>
+          </div>
+        </div>
       </nav>
       <a class="boost-lockup" href="/bmu" aria-label="BoostMeUp">
-        <img src="assets/boostmeup-logo.svg" alt="" />
+        <img src="./assets/boostmeup-logo.svg" alt="BoostMeUp" />
         <span>Boost<br />Me Up</span>
       </a>
     </header>
@@ -31,57 +39,35 @@
     <main id="inhoud">
       <section class="lab-hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow"><span>Microsoft Certified Trainer</span><span>Teamlead</span><span>Projectmanager</span></p>
-          <h1 id="hero-title">Ik maak<br /><em>techniek</em><br />begrijpelijk.</h1>
-          <p class="hero-lede">In opleidingen, coaching en praktische tools vertaal ik Microsoft 365, Azure en systeembeheer naar heldere stappen waar mensen echt mee verder kunnen.</p>
-          <div class="hero-actions">
-            <a class="button button-ink" href="/me/">Meer over mij <span>↗</span></a>
-            <a class="button button-ghost" href="#werk">Mijn projecten <span>↓</span></a>
+          <p class="eyebrow"><span>ICT voor de praktijk</span><span>Learn</span><span>Make</span></p>
+          <h1 id="hero-title" aria-label="IT-kennis. Menselijk gebracht."><span class="type-line" data-type="IT-kennis."></span><br /><span class="type-line" data-type="Menselijk"></span><br /><span class="type-line type-accent type-last" data-type="gebracht."></span><span class="type-cursor" aria-hidden="true"></span></h1>
+          <div class="hero-side">
+            <p class="hero-lede">Ik maak ICT begrijpelijk — met aandacht voor de mens die ermee moet werken, leren en groeien.</p>
+            <div class="hero-actions">
+              <a class="button button-ink" href="#werk">Ontdek de werkplaats <span>↓</span></a>
+              <a class="button button-ghost" href="/me/">Wie zit hierachter <span>↗</span></a>
+            </div>
+            <div class="hero-side-signal"><span>LEARN / MAKE / SHARE</span><i></i><b>01—03</b></div>
           </div>
         </div>
 
-        <aside class="practice-panel" aria-label="Mijn aanpak: begrijpen, proberen en zelfstandig verdergaan">
-          <div class="practice-top">
-            <p><span>01</span> Mijn aanpak</p>
-            <div class="practice-mark" aria-hidden="true">TECH <i>×</i> MENS</div>
-          </div>
-
-          <div class="practice-statement">
-            <small>SAMEN · STAP VOOR STAP</small>
-            <strong>Helder<br />uitleggen.<br /><em>Samen doen.</em></strong>
-          </div>
-
-          <ol class="practice-flow">
-            <li><span>01</span><div><strong>Begrijpen</strong><small>waarom iets werkt</small></div></li>
-            <li><span>02</span><div><strong>Proberen</strong><small>met ruimte voor vragen</small></div></li>
-            <li><span>03</span><div><strong>Zelf verder</strong><small>met vertrouwen</small></div></li>
-          </ol>
-
-          <div class="practice-tech" aria-label="Technologieën">
-            <span>M365</span><span>Azure</span><span>Entra ID</span><span>Intune</span><span>PowerShell</span><span>Security</span><span>+ meer</span>
-          </div>
-        </aside>
+        <div class="signal-strip" aria-hidden="true">
+          <div>GOED LUISTEREN · DUIDELIJK UITLEGGEN · SAMEN PROBEREN · EERLIJK BIJSTUREN · AFSPRAKEN NAKOMEN · BLIJVEN GROEIEN · GOED LUISTEREN · DUIDELIJK UITLEGGEN · SAMEN PROBEREN ·</div>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span>scroll</span><i></i><b>↓</b></div>
       </section>
 
-      <div class="signal-strip" aria-hidden="true">
-        <div>GOED LUISTEREN · DUIDELIJK UITLEGGEN · SAMEN PROBEREN · EERLIJK BIJSTUREN · AFSPRAKEN NAKOMEN · BLIJVEN GROEIEN · GOED LUISTEREN · DUIDELIJK UITLEGGEN · SAMEN PROBEREN ·</div>
-      </div>
-
-      <section class="workbench" id="werk" aria-labelledby="work-title">
-        <div class="workbench-heading">
-          <div><span class="section-no">01</span><p>Waar ik aan werk</p></div>
-          <h2 id="work-title">Waar ik graag<br /><em>mijn schouders onder zet.</em></h2>
-          <p>Hier deel ik mijn verhaal, praktische tools zoals de RBAC Analyzer en mijn werk bij BoostMeUp. Ik blijf graag bouwen, dus gaandeweg krijgen ook nieuwe tools, lesmaterialen en ideeën hier een plek.</p>
-        </div>
-
+      <section class="workbench" id="werk" aria-label="Onderdelen van tuurh.be">
+        <div class="overview-heading"><span>01 / OVERZICHT</span><h2>Waar wil je beginnen?</h2><p>Vijf ingangen tot het werk van Tuur Housiaux.</p></div>
         <div class="portal-grid">
           <a class="portal portal-me" href="/me/">
             <span class="portal-number">01 / PERSOON</span>
             <div class="portrait-type" aria-hidden="true"><span>T</span><i>H</i></div>
+            <img class="portrait-reveal" src="assets/tuurh-portrait.jpeg" alt="Tuur Housiaux" />
             <div class="portal-copy">
-              <p>Wie ik ben</p>
-              <h3>Over mij.</h3>
-              <span>Mijn verhaal en ervaring <b>→</b></span>
+              <p>Tuur Housiaux</p>
+              <h3>De gids</h3>
+              <span>Over mij. · Mijn verhaal en ervaring <b>→</b></span>
             </div>
           </a>
 
@@ -91,16 +77,40 @@
               <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
               <strong>20</strong>
             </div>
+            <img class="portal-reveal" src="assets/rbac-hover.png" alt="Abstracte visual rond rollen en toegangsbeheer" />
             <div class="portal-copy">
-              <p>Wat ik bouw</p>
+              <p>Het instrument</p>
               <h3>RBAC Analyzer.</h3>
               <span>Zelf rollen vergelijken <b>→</b></span>
             </div>
           </a>
 
+          <a class="portal portal-blog" href="/blog/">
+            <span class="portal-number">03 / NOTITIES</span>
+            <div class="blog-mark" aria-hidden="true"><span>MD</span><i>→</i><b>WEB</b></div>
+            <img class="portal-reveal" src="assets/blog-hover.png" alt="Editoriale visual van een notitieboek en technische schetsen" />
+            <div class="portal-copy">
+              <p>Het labboek</p>
+              <h3>Blog.</h3>
+              <span>Zoek op datum of onderwerp <b>→</b></span>
+            </div>
+          </a>
+
+          <a class="portal portal-ms102" href="/ms102/">
+            <span class="portal-number">04 / TOETS</span>
+            <div class="exam-mark" aria-hidden="true"><span>MS</span><b>102</b></div>
+            <img class="portal-reveal" src="assets/ms102-hover.png" alt="Abstracte visual rond Microsoft 365 leren en beheren" />
+            <div class="portal-copy">
+              <p>De leeromgeving</p>
+              <h3>MS-102.</h3>
+              <span>Eindtoets per domein <b>→</b></span>
+            </div>
+          </a>
+
           <a class="portal portal-boost" href="/bmu">
-            <span class="portal-number">03 / GROEI</span>
-            <img class="portal-boost-logo" src="assets/boostmeup-logo.svg" alt="" />
+            <span class="portal-number">05 / GROEI</span>
+            <img class="portal-boost-logo" src="./assets/boostmeup-logo.svg" alt="" />
+            <img class="portal-reveal" src="assets/boostmeup-hover.png" alt="Kleurrijke visual rond leren, groeien en BoostMeUp" />
             <div class="portal-copy">
               <p>Waar ik voor ga</p>
               <h3>BoostMeUp.</h3>
