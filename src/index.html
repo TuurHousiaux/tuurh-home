@@ -7,34 +7,13 @@
     <meta name="theme-color" content="#11110f" />
     <title>tuurh.be — Een werkplaats voor technologie</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="/shared/navigation.js" type="module"></script>
     <script src="app.js" type="module"></script>
   </head>
   <body>
     <a class="skip-link" href="#inhoud">Ga naar de inhoud</a>
 
-    <header class="ecosystem-header ecosystem-header-home">
-      <a class="ecosystem-wordmark" href="/" aria-label="tuurh.be — home">
-        <strong>tuurh<span>.be</span></strong>
-        <small>by Tuur Housiaux</small>
-      </a>
-      <nav class="ecosystem-nav" aria-label="Hoofdnavigatie">
-        <a class="is-active" href="/" aria-current="page"><span>01</span>Home</a>
-        <a href="/me/"><span>02</span>Over mij</a>
-        <a href="/rbac/"><span>03</span>RBAC</a>
-        <a href="/blog/"><span>04</span>Blog</a>
-        <div class="nav-group">
-          <a class="nav-parent" href="/ms102/"><span>05</span>MS-102 <b aria-hidden="true">+</b></a>
-          <div class="nav-submenu" aria-label="MS-102 onderdelen">
-            <a href="/ms102/"><small>05.01</small>Vragen</a>
-            <a href="/rbac/"><small>05.02</small>RBAC</a>
-          </div>
-        </div>
-      </nav>
-      <a class="boost-lockup" href="/bmu" aria-label="BoostMeUp">
-        <img src="./assets/boostmeup-logo.svg" alt="BoostMeUp" />
-        <span>Boost<br />Me Up</span>
-      </a>
-    </header>
+    <tuurh-navigation></tuurh-navigation>
 
     <main id="inhoud">
       <section class="lab-hero" aria-labelledby="hero-title">
