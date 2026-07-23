@@ -4,38 +4,26 @@ document.querySelectorAll("[data-year]").forEach((element) => {
   element.textContent = String(new Date().getFullYear());
 });
 
-function revealActions() {
-  const actions = document.getElementById("hero-actions");
-  if (!actions) return;
-  actions.classList.remove("is-pending");
-  actions.classList.add("is-ready");
-}
-
 function runTypewriter() {
   const target = document.getElementById("typewriter");
   const cursor = document.querySelector(".type-cursor");
-  if (!target) {
-    revealActions();
+  if (!target || reduceMotion) {
+    cursor?.classList.add("is-done");
     return;
   }
 
-  const fullText = target.dataset.type || "";
-  if (reduceMotion) {
-    target.textContent = fullText;
-    cursor?.classList.add("is-done");
-    revealActions();
-    return;
-  }
+  const fullText = target.dataset.type || target.textContent.trim();
+  if (!fullText) return;
 
   let index = 0;
   let skipped = false;
   target.textContent = "";
+  cursor?.classList.remove("is-done");
 
   const finish = () => {
     skipped = true;
     target.textContent = fullText;
     cursor?.classList.add("is-done");
-    revealActions();
   };
 
   const tick = () => {
@@ -43,19 +31,19 @@ function runTypewriter() {
     target.textContent = fullText.slice(0, index + 1);
     index += 1;
     if (index < fullText.length) {
-      window.setTimeout(tick, 28);
+      window.setTimeout(tick, 22);
     } else {
       cursor?.classList.add("is-done");
-      window.setTimeout(revealActions, 180);
     }
   };
 
-  document.addEventListener("pointerdown", finish, { once: true });
+  const onSkip = () => finish();
+  document.addEventListener("pointerdown", onSkip, { once: true });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") finish();
   }, { once: true });
 
-  window.setTimeout(tick, 420);
+  window.setTimeout(tick, 280);
 }
 
 function setupFlyIns() {
@@ -75,10 +63,17 @@ function setupFlyIns() {
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.14, rootMargin: "0px 0px -8% 0px" },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
   );
 
-  nodes.forEach((node) => observer.observe(node));
+  nodes.forEach((node) => {
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) {
+      node.classList.add("is-in");
+    } else {
+      observer.observe(node);
+    }
+  });
 }
 
 function setupStoryRail() {
@@ -126,8 +121,8 @@ function setupParallax() {
 
   hero.addEventListener("pointermove", (event) => {
     const box = hero.getBoundingClientRect();
-    const x = ((event.clientX - box.left) / box.width - 0.5) * 12;
-    const y = ((event.clientY - box.top) / box.height - 0.5) * 12;
+    const x = ((event.clientX - box.left) / box.width - 0.5) * 10;
+    const y = ((event.clientY - box.top) / box.height - 0.5) * 10;
     portrait.style.setProperty("--px", `${x}px`);
     portrait.style.setProperty("--py", `${y}px`);
   });

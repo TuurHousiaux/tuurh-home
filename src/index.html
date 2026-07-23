@@ -6,7 +6,12 @@
     <meta name="description" content="tuurh.be — tools, training en Microsoft-leerpaden van Tuur Housiaux." />
     <meta name="theme-color" content="#11110f" />
     <title>tuurh.be — tools, training en Microsoft-leerpaden</title>
+    <link rel="preload" href="/shared/navigation.js" as="script" crossorigin />
+    <link rel="preload" href="/shared/navigation.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      tuurh-navigation { display: block; min-height: 72px; background: #11110f; }
+    </style>
     <script src="/shared/navigation.js" type="module"></script>
     <script src="app.js" type="module"></script>
   </head>
@@ -38,9 +43,9 @@
               <span
                 id="typewriter"
                 data-type="Tools, questions, labs en leerpaden — alles om helder te oefenen en verder te geraken."
-              ></span><span class="type-cursor" aria-hidden="true"></span>
+              >Tools, questions, labs en leerpaden — alles om helder te oefenen en verder te geraken.</span><span class="type-cursor is-done" aria-hidden="true"></span>
             </p>
-            <div class="hero-actions is-pending" id="hero-actions">
+            <div class="hero-actions" id="hero-actions">
               <a class="button button-coral" href="#kaart">Ontdek de sitekaart <span>↓</span></a>
               <a class="button button-ghost" href="/me/">Over mij <span>→</span></a>
             </div>
