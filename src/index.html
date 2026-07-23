@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Tuur Housiaux — Microsoft Certified Trainer. Tools, training en leerpaden om te groeien in je ICT-rol." />
-    <meta name="theme-color" content="#0c0b09" />
-    <title>Tuur Housiaux — de editie</title>
+    <meta name="description" content="Tuur Housiaux, Microsoft Certified Trainer. Tools, training en leerpaden om te groeien in je ICT-rol." />
+    <meta name="theme-color" content="#070b12" />
+    <title>Tuur Housiaux · de editie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="preload" href="/shared/navigation.js" as="script" crossorigin />
     <link rel="preload" href="/shared/navigation.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <style>
-      tuurh-navigation { display: block; min-height: 72px; background: #11110f; }
+      tuurh-navigation { display: block; min-height: 72px; background: #070b12; }
     </style>
     <script src="/shared/navigation.js" type="module"></script>
     <script src="app.js" type="module"></script>
@@ -39,161 +42,187 @@
                 >Gedreven MCT met een passie om complexe Microsoft-technologie helder, warm en bruikbaar te maken.</span><span class="type-cursor is-done" aria-hidden="true"></span>
               </p>
               <div class="mast-actions">
-                <a class="ink-link" href="#inhoud-blad">Lees verder in deze editie ↓</a>
-                <a class="ink-link quiet" href="/me/">Volledig portret →</a>
+                <a class="ink-link" href="#sec-me">Duik in de tools</a>
+                <a class="ink-link quiet" href="/me/">Volledig portret</a>
               </div>
             </div>
             <figure class="mast-portrait" data-parallax data-fly="right">
               <img src="assets/tuurh-portrait.jpeg" alt="Portret van Tuur Housiaux" width="480" height="600" />
-              <figcaption>Tuur Housiaux — trainer, teamlead, BoostMeUp</figcaption>
+              <figcaption>Tuur Housiaux · trainer, teamlead, BoostMeUp</figcaption>
             </figure>
           </div>
         </div>
       </header>
 
-      <div class="folio wrap" id="inhoud-blad">
-        <nav class="index-col" aria-label="In deze editie" data-fly="up">
-          <p class="col-label">In deze editie</p>
-          <ol>
-            <li><a href="#sec-me"><b>A</b> Over mij</a></li>
-            <li><a href="#sec-ms365"><b>B</b> Microsoft 365</a></li>
-            <li><a href="#sec-intune"><b>C</b> Intune</a></li>
-            <li><a href="#sec-azure"><b>D</b> Azure</a></li>
-            <li><a href="#sec-network"><b>E</b> Network</a></li>
-            <li><a href="#sec-meer"><b>F</b> Assessments &amp; blog</a></li>
-            <li><a href="#sec-contact"><b>G</b> Contact</a></li>
-          </ol>
-        </nav>
-
-        <div class="pages">
-          <section class="page" id="sec-me" aria-labelledby="me-title" data-fly="up">
-            <p class="rubric">Sectie A · Over mij</p>
+      <div class="pages wrap">
+        <section class="page page-me" id="sec-me" aria-labelledby="me-title" data-fly="up">
+          <div class="page-head">
             <h2 id="me-title">Eerst de mens. Dan de tools.</h2>
-            <p class="lead">Profiel, video’s en openbare leerpaden — de context naast alles wat ik bouw.</p>
-            <div class="columns three">
-              <a href="/me/">
-                <span>A1</span>
-                <strong>Profiel</strong>
-                <em>Verhaal, expertise en ervaring</em>
-              </a>
-              <a href="/me/videos/">
-                <span>A2</span>
-                <strong>Video library</strong>
-                <em>Webinars en playlists</em>
-              </a>
-              <a href="/me/leerpaden/">
-                <span>A3</span>
-                <strong>Leerpaden</strong>
-                <em>Whitelisted TalentLMS-cursussen</em>
-              </a>
-            </div>
-          </section>
+            <p class="lead">Profiel, video’s en openbare leerpaden. De context naast alles wat ik bouw.</p>
+          </div>
+          <div class="tool-grid three">
+            <a href="/me/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M5 19c1.2-3.2 3.4-4.8 7-4.8s5.8 1.6 7 4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              <strong>Profiel</strong>
+              <em>Verhaal, expertise en ervaring</em>
+            </a>
+            <a href="/me/videos/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor"/></svg>
+              </span>
+              <strong>Video library</strong>
+              <em>Webinars en playlists</em>
+            </a>
+            <a href="/me/leerpaden/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5h7.5V19L8 16.5 4 19V6.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.5 6.5H20V19l-3.5-2.5L12.5 19V6.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </span>
+              <strong>Leerpaden</strong>
+              <em>Whitelisted TalentLMS-cursussen</em>
+            </a>
+          </div>
+        </section>
 
-          <section class="page" id="sec-ms365" aria-labelledby="ms365-title" data-fly="up">
-            <p class="rubric">Sectie B · Microsoft 365</p>
+        <section class="page page-ms365" id="sec-ms365" aria-labelledby="ms365-title" data-fly="up">
+          <div class="page-head">
             <h2 id="ms365-title">Rollen, rechten en examenvragen.</h2>
             <p class="lead">Van RBAC-discussies tot oefenvragen voor MS-102 en AB-900.</p>
-            <div class="columns three">
-              <a class="accent" href="/ms365/rbac-analyzer/">
-                <span>B1</span>
+          </div>
+          <div class="tool-feature">
+            <a class="feature-card" href="/ms365/rbac-analyzer/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="18" cy="12" r="2.2" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="17" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              <div>
                 <strong>RBAC Analyzer</strong>
-                <em>Rollen en rechten vergelijken</em>
-              </a>
+                <em>Rollen en rechten vergelijken in één oogopslag</em>
+              </div>
+            </a>
+            <div class="feature-stack">
               <a href="/ms365/ms-102-questions/">
-                <span>B2</span>
+                <span class="tool-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 4.5h10v15H7V4.5Z" stroke="currentColor" stroke-width="1.6"/><path d="M10 8h4M10 12h4M10 16h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </span>
                 <strong>Questions MS-102</strong>
                 <em>Administrator Expert</em>
               </a>
               <a href="/ms365/ab-900-questions/">
-                <span>B3</span>
+                <span class="tool-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7.5" stroke="currentColor" stroke-width="1.6"/><path d="M9 12.5 11 14.5 15.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
                 <strong>Questions AB-900</strong>
                 <em>Copilot &amp; agents</em>
               </a>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section class="page" id="sec-intune" aria-labelledby="intune-title" data-fly="up">
-            <p class="rubric">Sectie C · Intune</p>
+        <section class="page page-intune" id="sec-intune" aria-labelledby="intune-title" data-fly="up">
+          <div class="page-head">
             <h2 id="intune-title">Endpoint management, drie ingangen.</h2>
-            <p class="lead">Scripts, scenario-kaarten en MD-102 — oefenen tot het zit.</p>
-            <div class="columns three">
-              <a href="/intune/intune-scripts/">
-                <span>C1</span>
-                <strong>Scripts</strong>
-                <em>Bruikbaar in de praktijk</em>
-              </a>
-              <a href="/intune/draw-a-card/">
-                <span>C2</span>
-                <strong>Draw a Card</strong>
-                <em>Scenario’s en gesprekken</em>
-              </a>
-              <a href="/intune/md-102-questions/">
-                <span>C3</span>
-                <strong>Questions MD-102</strong>
-                <em>Endpoint Administrator</em>
-              </a>
-            </div>
-          </section>
+            <p class="lead">Scripts, scenario-kaarten en MD-102. Oefenen tot het zit.</p>
+          </div>
+          <div class="tool-strip">
+            <a href="/intune/intune-scripts/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M8 7 4.5 12 8 17M16 7l3.5 5L16 17M13 5l-2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <strong>Scripts</strong>
+              <em>Bruikbaar in de praktijk</em>
+            </a>
+            <a href="/intune/draw-a-card/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="4.5" width="10" height="15" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="9" y="6.5" width="10" height="15" rx="1.5" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              <strong>Draw a Card</strong>
+              <em>Scenario’s en gesprekken</em>
+            </a>
+            <a href="/intune/md-102-questions/">
+              <span class="tool-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 9h6M9 13h6M9 17h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <strong>Questions MD-102</strong>
+              <em>Endpoint Administrator</em>
+            </a>
+          </div>
+        </section>
 
-          <section class="page" id="sec-azure" aria-labelledby="azure-title" data-fly="up">
-            <p class="rubric">Sectie D · Azure</p>
+        <section class="page page-azure" id="sec-azure" aria-labelledby="azure-title" data-fly="up">
+          <div class="page-head">
             <h2 id="azure-title">Eerst denken. Dan klikken.</h2>
             <p class="lead">Structuur in keuzes met de wizard, fundamentals via AZ-900.</p>
-            <div class="columns two">
-              <a class="accent" href="/azure/azure-wizard/">
-                <span>D1</span>
-                <strong>Azure Wizard</strong>
-                <em>Stap voor stap keuzes maken</em>
-              </a>
-              <a href="/azure/az-900-questions/">
-                <span>D2</span>
-                <strong>Questions AZ-900</strong>
-                <em>Cloud fundamentals</em>
-              </a>
-            </div>
-          </section>
+          </div>
+          <div class="tool-grid two big">
+            <a class="accent" href="/azure/azure-wizard/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19.5 8v8L12 20.5 4.5 16V8L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8v8M8.5 10.5 12 12.5l3.5-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <strong>Azure Wizard</strong>
+              <em>Stap voor stap keuzes maken</em>
+            </a>
+            <a href="/azure/az-900-questions/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 16.5c2-3.5 4.2-5.2 7-5.2s5 1.7 7 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="9" r="2.8" stroke="currentColor" stroke-width="1.6"/></svg>
+              </span>
+              <strong>Questions AZ-900</strong>
+              <em>Cloud fundamentals</em>
+            </a>
+          </div>
+        </section>
 
-          <section class="page" id="sec-network" aria-labelledby="network-title" data-fly="up">
-            <p class="rubric">Sectie E · Network</p>
-            <h2 id="network-title">Patchen tot het netwerk weer ademt.</h2>
-            <p class="lead">Interactieve missies rond kabelbeheer, labels en kleurcodes.</p>
-            <div class="columns one">
-              <a class="wide" href="/network/network-guardian/">
-                <span>E1</span>
+        <section class="page page-network" id="sec-network" aria-labelledby="network-title" data-fly="up">
+          <div class="network-banner">
+            <div>
+              <h2 id="network-title">Patchen tot het netwerk weer ademt.</h2>
+              <p class="lead">Interactieve missies rond kabelbeheer, labels en kleurcodes.</p>
+            </div>
+            <a class="network-cta" href="/network/network-guardian/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h4v3H4V8Zm6 0h4v3h-4V8Zm6 0h4v3h-4V8ZM4 13h4v3H4v-3Zm6 0h4v3h-4v-3Zm6 0h4v3h-4v-3Z" stroke="currentColor" stroke-width="1.4"/><path d="M6 11v2m6-2v2m6-2v2" stroke="currentColor" stroke-width="1.4"/></svg>
+              </span>
+              <div>
                 <strong>Network Guardian</strong>
-                <em>Vier patchpaneel-missies met XP — start hier</em>
-              </a>
-            </div>
-          </section>
+                <em>Vier patchpaneel-missies met XP. Start hier.</em>
+              </div>
+            </a>
+          </div>
+        </section>
 
-          <section class="page" id="sec-meer" aria-labelledby="meer-title" data-fly="up">
-            <p class="rubric">Sectie F · Verder lezen</p>
+        <section class="page page-meer" id="sec-meer" aria-labelledby="meer-title" data-fly="up">
+          <div class="page-head">
             <h2 id="meer-title">Check waar je staat. Lees wat blijft hangen.</h2>
-            <div class="columns two">
-              <a href="/assessments/">
-                <span>F1</span>
-                <strong>Assessments</strong>
-                <em>Richting in je leerpad of rol</em>
-              </a>
-              <a href="/blog/">
-                <span>F2</span>
-                <strong>Blog</strong>
-                <em>Notities uit de praktijk</em>
-              </a>
-            </div>
-          </section>
+          </div>
+          <div class="tool-grid two split">
+            <a href="/assessments/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 4c3.5 2.2 6 3 8 3v8c-2 0-4.5-.8-8-3M12 4C8.5 6.2 6 7 4 7v8c2 0 4.5-.8 8-3" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </span>
+              <strong>Assessments</strong>
+              <em>Richting in je leerpad of rol</em>
+            </a>
+            <a href="/blog/">
+              <span class="tool-ico lg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 5h12v14H6V5Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 9h6M9 12.5h6M9 16h3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <strong>Blog</strong>
+              <em>Notities uit de praktijk</em>
+            </a>
+          </div>
+        </section>
 
-          <section class="page page-contact" id="sec-contact" aria-labelledby="contact-title" data-fly="up">
-            <p class="rubric">Sectie G · Contact</p>
+        <section class="page page-contact" id="sec-contact" aria-labelledby="contact-title" data-fly="up">
+          <div class="page-head">
             <h2 id="contact-title">Zin om iets samen scherper te maken?</h2>
-            <div class="contact-row">
-              <a href="mailto:Tuurhousiaux@gmail.com"><span>Mail</span><strong>Tuurhousiaux@gmail.com</strong></a>
-              <a href="https://be.linkedin.com/in/tuur-housiaux" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>/in/tuur-housiaux</strong></a>
-              <a href="/bmu"><span>BoostMeUp</span><strong>boostmeup.be</strong></a>
-              <div><span>Locatie</span><strong>Erpe, België</strong></div>
-            </div>
-          </section>
-        </div>
+          </div>
+          <div class="contact-row">
+            <a href="mailto:Tuurhousiaux@gmail.com"><span>Mail</span><strong>Tuurhousiaux@gmail.com</strong></a>
+            <a href="https://be.linkedin.com/in/tuur-housiaux" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>/in/tuur-housiaux</strong></a>
+            <a href="/bmu"><span>BoostMeUp</span><strong>boostmeup.be</strong></a>
+            <div><span>Locatie</span><strong>Erpe, België</strong></div>
+          </div>
+        </section>
       </div>
     </main>
 
