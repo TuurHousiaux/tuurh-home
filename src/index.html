@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Tuur Housiaux — Microsoft Certified Trainer. Tools, training en leerpaden om te groeien in je ICT-rol." />
-    <meta name="theme-color" content="#11110f" />
-    <title>Tuur Housiaux — Microsoft Certified Trainer</title>
+    <meta name="theme-color" content="#f2eee4" />
+    <title>Tuur Housiaux — de editie</title>
     <link rel="preload" href="/shared/navigation.js" as="script" crossorigin />
     <link rel="preload" href="/shared/navigation.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="styles.css" />
@@ -15,214 +15,186 @@
     <script src="/shared/navigation.js" type="module"></script>
     <script src="app.js" type="module"></script>
   </head>
-  <body>
+  <body class="edition">
     <a class="skip-link" href="#inhoud">Ga naar de inhoud</a>
     <tuurh-navigation></tuurh-navigation>
 
-    <nav class="story-rail" aria-label="Voortgang op deze pagina">
-      <a href="#hero" data-story="hero"><span>01</span><i>Start</i></a>
-      <a href="#paden" data-story="paden"><span>02</span><i>Paden</i></a>
-      <a href="#me" data-story="me"><span>03</span><i>Over mij</i></a>
-      <a href="#ms365" data-story="ms365"><span>04</span><i>MS365</i></a>
-      <a href="#intune" data-story="intune"><span>05</span><i>Intune</i></a>
-      <a href="#azure" data-story="azure"><span>06</span><i>Azure</i></a>
-      <a href="#network" data-story="network"><span>07</span><i>Network</i></a>
-      <a href="#meer" data-story="meer"><span>08</span><i>Meer</i></a>
-      <a href="#contact" data-story="contact"><span>09</span><i>Contact</i></a>
-    </nav>
-
     <main id="inhoud">
-      <section class="hero" id="hero" aria-labelledby="hero-title">
-        <div class="wrap hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow"><span></span>Microsoft Certified Trainer</p>
-            <h1 id="hero-title">Ik help mensen <em>groeien</em> in hun ICT-rol.</h1>
-            <p class="hero-lede">
-              <span
-                id="typewriter"
-                data-type="Gedreven MCT met een passie om complexe Microsoft-technologie helder, warm en bruikbaar te maken."
-              >Gedreven MCT met een passie om complexe Microsoft-technologie helder, warm en bruikbaar te maken.</span><span class="type-cursor is-done" aria-hidden="true"></span>
-            </p>
-            <div class="hero-actions">
-              <a class="button button-coral" href="#paden">Bekijk wat ik bouw <span>↓</span></a>
-              <a class="text-link" href="/me/">Lees mijn verhaal</a>
-            </div>
+      <header class="masthead" id="hero">
+        <div class="wrap">
+          <div class="mast-meta" data-fly="up">
+            <span>Editie · tuurh.be</span>
+            <span data-date></span>
+            <span>Erpe, België</span>
           </div>
-          <figure class="hero-portrait" data-parallax>
-            <div class="portrait-frame">
+
+          <div class="mast-grid">
+            <div class="mast-copy" data-fly="left">
+              <p class="byline">Door Tuur Housiaux · Microsoft Certified Trainer</p>
+              <h1>Ik help mensen <em>groeien</em> in hun ICT-rol.</h1>
+              <p class="deck">
+                <span
+                  id="typewriter"
+                  data-type="Gedreven MCT met een passie om complexe Microsoft-technologie helder, warm en bruikbaar te maken."
+                >Gedreven MCT met een passie om complexe Microsoft-technologie helder, warm en bruikbaar te maken.</span><span class="type-cursor is-done" aria-hidden="true"></span>
+              </p>
+              <div class="mast-actions">
+                <a class="ink-link" href="#inhoud-blad">Lees verder in deze editie ↓</a>
+                <a class="ink-link quiet" href="/me/">Volledig portret →</a>
+              </div>
+            </div>
+            <figure class="mast-portrait" data-parallax data-fly="right">
               <img src="assets/tuurh-portrait.jpeg" alt="Portret van Tuur Housiaux" width="480" height="600" />
-            </div>
-            <figcaption>
-              <span>Tuur Housiaux</span>
-              <span>Trainer · teamlead · BoostMeUp</span>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="paden" id="paden" aria-label="Snel naar een domein">
-        <div class="wrap paden-row" data-fly="up">
-          <p>Kies een pad</p>
-          <div class="paden-links">
-            <a href="#me">Over mij</a>
-            <a href="#ms365">MS365</a>
-            <a href="#intune">Intune</a>
-            <a href="#azure">Azure</a>
-            <a href="#network">Network</a>
-            <a href="#meer">Assessments &amp; blog</a>
+              <figcaption>Tuur Housiaux — trainer, teamlead, BoostMeUp</figcaption>
+            </figure>
           </div>
         </div>
-      </section>
+      </header>
 
-      <section class="chapter chapter-story" id="me" aria-labelledby="me-title">
-        <div class="wrap">
-          <div class="story-intro" data-fly="up">
-            <p class="kicker">Over mij</p>
+      <div class="folio wrap" id="inhoud-blad">
+        <nav class="index-col" aria-label="In deze editie" data-fly="up">
+          <p class="col-label">In deze editie</p>
+          <ol>
+            <li><a href="#sec-me"><b>A</b> Over mij</a></li>
+            <li><a href="#sec-ms365"><b>B</b> Microsoft 365</a></li>
+            <li><a href="#sec-intune"><b>C</b> Intune</a></li>
+            <li><a href="#sec-azure"><b>D</b> Azure</a></li>
+            <li><a href="#sec-network"><b>E</b> Network</a></li>
+            <li><a href="#sec-meer"><b>F</b> Assessments &amp; blog</a></li>
+            <li><a href="#sec-contact"><b>G</b> Contact</a></li>
+          </ol>
+        </nav>
+
+        <div class="pages">
+          <section class="page" id="sec-me" aria-labelledby="me-title" data-fly="up">
+            <p class="rubric">Sectie A · Over mij</p>
             <h2 id="me-title">Eerst de mens. Dan de tools.</h2>
-            <p class="story-lead">Wie ik ben, wat ik film, en welke leerpaden ik openbaar deel. Geen catalogus — context.</p>
-          </div>
-          <div class="story-paths" data-fly="up">
-            <a class="story-path story-path-main" href="/me/">
-              <span class="path-label">Profiel</span>
-              <strong>Het verhaal achter de trainingen</strong>
-              <p>Expertise, ervaring en hoe ik leerervaringen bouw.</p>
-              <span class="path-go">Open →</span>
-            </a>
-            <a class="story-path" href="/me/videos/">
-              <span class="path-label">Video</span>
-              <strong>Library</strong>
-              <p>Webinars waarin ik techniek rustig uitleg.</p>
-            </a>
-            <a class="story-path" href="/me/leerpaden/">
-              <span class="path-label">TalentLMS</span>
-              <strong>Leerpaden</strong>
-              <p>Alleen de cursussen die ik whitelist.</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter chapter-feature" id="ms365" aria-labelledby="ms365-title">
-        <div class="wrap feature-layout">
-          <a class="feature-hero" href="/ms365/rbac-analyzer/" data-fly="left">
-            <span class="feature-tag">MS365 · spotlight</span>
-            <h2 id="ms365-title">RBAC Analyzer</h2>
-            <p>Vergelijk rollen en rechten tot je ziet wat iemand écht mag. Gebouwd om discussies in teams sneller scherp te krijgen.</p>
-            <span class="feature-cta">Start de analyzer →</span>
-          </a>
-          <div class="feature-side" data-fly="right">
-            <p class="side-label">Oefen door te doen</p>
-            <a href="/ms365/ms-102-questions/">
-              <b>MS-102</b>
-              <span>Administrator Expert questions</span>
-            </a>
-            <a href="/ms365/ab-900-questions/">
-              <b>AB-900</b>
-              <span>Copilot &amp; agents fundamentals</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter chapter-trio" id="intune" aria-labelledby="intune-title">
-        <div class="wrap">
-          <div class="trio-head" data-fly="up">
-            <p class="kicker">Intune</p>
-            <h2 id="intune-title">Drie manieren om endpoint management vast te pakken.</h2>
-          </div>
-          <div class="trio" data-fly="up">
-            <a class="trio-card trio-a" href="/intune/intune-scripts/">
-              <span>01</span>
-              <h3>Scripts</h3>
-              <p>Bruikbare scripts die je meteen inzet.</p>
-            </a>
-            <a class="trio-card trio-b" href="/intune/draw-a-card/">
-              <span>02</span>
-              <h3>Draw a Card</h3>
-              <p>Scenario’s om te oefenen en te bespreken.</p>
-            </a>
-            <a class="trio-card trio-c" href="/intune/md-102-questions/">
-              <span>03</span>
-              <h3>MD-102</h3>
-              <p>Questions voor Endpoint Administrator.</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter chapter-split" id="azure" aria-labelledby="azure-title">
-        <div class="split-panel" data-fly="left">
-          <p class="kicker light">Azure</p>
-          <h2 id="azure-title">Eerst denken. Dan klikken.</h2>
-          <p>De Azure Wizard helpt je keuzes structureren — zonder meteen in de portal te verdwalen.</p>
-          <a class="button button-acid" href="/azure/azure-wizard/">Open Azure Wizard <span>→</span></a>
-        </div>
-        <a class="split-note" href="/azure/az-900-questions/" data-fly="right">
-          <span>Daarnaast</span>
-          <strong>Questions AZ-900</strong>
-          <p>Cloud fundamentals inoefenen in hetzelfde ritme.</p>
-        </a>
-      </section>
-
-      <section class="chapter chapter-mission" id="network" aria-labelledby="network-title">
-        <div class="wrap mission" data-fly="up">
-          <div class="mission-copy">
-            <p class="kicker light">Network</p>
-            <h2 id="network-title">Patch tot het netwerk weer ademt.</h2>
-            <p>Vier missies. Eén paneel. Labels, kleuren en chaos — jij bewijst welke poort juist is.</p>
-          </div>
-          <a class="mission-go" href="/network/network-guardian/">
-            <span>Start</span>
-            <strong>Network Guardian</strong>
-            <em>→</em>
-          </a>
-        </div>
-      </section>
-
-      <section class="chapter chapter-pair" id="meer" aria-labelledby="meer-title">
-        <div class="wrap">
-          <h2 class="visually-hidden" id="meer-title">Assessments en blog</h2>
-          <div class="pair" data-fly="up">
-            <a class="pair-card pair-assess" href="/assessments/">
-              <span>Assessments</span>
-              <strong>Waar sta je nu?</strong>
-              <p>Een korte check die richting geeft in je leerpad of rol.</p>
-            </a>
-            <a class="pair-card pair-blog" href="/blog/">
-              <span>Blog</span>
-              <strong>Notities uit de praktijk</strong>
-              <p>Wat blijft hangen na trainingen, labs en gesprekken.</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="contact section" id="contact" aria-labelledby="contact-title">
-        <div class="wrap">
-          <div class="section-head" data-fly="up">
-            <p class="kicker">Contact</p>
-            <h2 id="contact-title">Zin om iets <em>samen</em> scherper te maken?</h2>
-          </div>
-          <div class="contact-grid" data-fly="up">
-            <a class="contact-item contact-primary" href="mailto:Tuurhousiaux@gmail.com">
-              <span>Mail</span>
-              <strong>Tuurhousiaux@gmail.com</strong>
-            </a>
-            <a class="contact-item" href="https://be.linkedin.com/in/tuur-housiaux" target="_blank" rel="noreferrer">
-              <span>LinkedIn</span>
-              <strong>/in/tuur-housiaux</strong>
-            </a>
-            <a class="contact-item" href="/bmu">
-              <span>BoostMeUp</span>
-              <strong>boostmeup.be</strong>
-            </a>
-            <div class="contact-item">
-              <span>Locatie</span>
-              <strong>Erpe, België</strong>
+            <p class="lead">Profiel, video’s en openbare leerpaden — de context naast alles wat ik bouw.</p>
+            <div class="columns three">
+              <a href="/me/">
+                <span>A1</span>
+                <strong>Profiel</strong>
+                <em>Verhaal, expertise en ervaring</em>
+              </a>
+              <a href="/me/videos/">
+                <span>A2</span>
+                <strong>Video library</strong>
+                <em>Webinars en playlists</em>
+              </a>
+              <a href="/me/leerpaden/">
+                <span>A3</span>
+                <strong>Leerpaden</strong>
+                <em>Whitelisted TalentLMS-cursussen</em>
+              </a>
             </div>
-          </div>
+          </section>
+
+          <section class="page" id="sec-ms365" aria-labelledby="ms365-title" data-fly="up">
+            <p class="rubric">Sectie B · Microsoft 365</p>
+            <h2 id="ms365-title">Rollen, rechten en examenvragen.</h2>
+            <p class="lead">Van RBAC-discussies tot oefenvragen voor MS-102 en AB-900.</p>
+            <div class="columns three">
+              <a class="accent" href="/ms365/rbac-analyzer/">
+                <span>B1</span>
+                <strong>RBAC Analyzer</strong>
+                <em>Rollen en rechten vergelijken</em>
+              </a>
+              <a href="/ms365/ms-102-questions/">
+                <span>B2</span>
+                <strong>Questions MS-102</strong>
+                <em>Administrator Expert</em>
+              </a>
+              <a href="/ms365/ab-900-questions/">
+                <span>B3</span>
+                <strong>Questions AB-900</strong>
+                <em>Copilot &amp; agents</em>
+              </a>
+            </div>
+          </section>
+
+          <section class="page" id="sec-intune" aria-labelledby="intune-title" data-fly="up">
+            <p class="rubric">Sectie C · Intune</p>
+            <h2 id="intune-title">Endpoint management, drie ingangen.</h2>
+            <p class="lead">Scripts, scenario-kaarten en MD-102 — oefenen tot het zit.</p>
+            <div class="columns three">
+              <a href="/intune/intune-scripts/">
+                <span>C1</span>
+                <strong>Scripts</strong>
+                <em>Bruikbaar in de praktijk</em>
+              </a>
+              <a href="/intune/draw-a-card/">
+                <span>C2</span>
+                <strong>Draw a Card</strong>
+                <em>Scenario’s en gesprekken</em>
+              </a>
+              <a href="/intune/md-102-questions/">
+                <span>C3</span>
+                <strong>Questions MD-102</strong>
+                <em>Endpoint Administrator</em>
+              </a>
+            </div>
+          </section>
+
+          <section class="page" id="sec-azure" aria-labelledby="azure-title" data-fly="up">
+            <p class="rubric">Sectie D · Azure</p>
+            <h2 id="azure-title">Eerst denken. Dan klikken.</h2>
+            <p class="lead">Structuur in keuzes met de wizard, fundamentals via AZ-900.</p>
+            <div class="columns two">
+              <a class="accent" href="/azure/azure-wizard/">
+                <span>D1</span>
+                <strong>Azure Wizard</strong>
+                <em>Stap voor stap keuzes maken</em>
+              </a>
+              <a href="/azure/az-900-questions/">
+                <span>D2</span>
+                <strong>Questions AZ-900</strong>
+                <em>Cloud fundamentals</em>
+              </a>
+            </div>
+          </section>
+
+          <section class="page" id="sec-network" aria-labelledby="network-title" data-fly="up">
+            <p class="rubric">Sectie E · Network</p>
+            <h2 id="network-title">Patchen tot het netwerk weer ademt.</h2>
+            <p class="lead">Interactieve missies rond kabelbeheer, labels en kleurcodes.</p>
+            <div class="columns one">
+              <a class="wide" href="/network/network-guardian/">
+                <span>E1</span>
+                <strong>Network Guardian</strong>
+                <em>Vier patchpaneel-missies met XP — start hier</em>
+              </a>
+            </div>
+          </section>
+
+          <section class="page" id="sec-meer" aria-labelledby="meer-title" data-fly="up">
+            <p class="rubric">Sectie F · Verder lezen</p>
+            <h2 id="meer-title">Check waar je staat. Lees wat blijft hangen.</h2>
+            <div class="columns two">
+              <a href="/assessments/">
+                <span>F1</span>
+                <strong>Assessments</strong>
+                <em>Richting in je leerpad of rol</em>
+              </a>
+              <a href="/blog/">
+                <span>F2</span>
+                <strong>Blog</strong>
+                <em>Notities uit de praktijk</em>
+              </a>
+            </div>
+          </section>
+
+          <section class="page page-contact" id="sec-contact" aria-labelledby="contact-title" data-fly="up">
+            <p class="rubric">Sectie G · Contact</p>
+            <h2 id="contact-title">Zin om iets samen scherper te maken?</h2>
+            <div class="contact-row">
+              <a href="mailto:Tuurhousiaux@gmail.com"><span>Mail</span><strong>Tuurhousiaux@gmail.com</strong></a>
+              <a href="https://be.linkedin.com/in/tuur-housiaux" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>/in/tuur-housiaux</strong></a>
+              <a href="/bmu"><span>BoostMeUp</span><strong>boostmeup.be</strong></a>
+              <div><span>Locatie</span><strong>Erpe, België</strong></div>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
     </main>
 
     <footer>

@@ -1,8 +1,17 @@
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 document.querySelectorAll("[data-year]").forEach((element) => {
   element.textContent = String(new Date().getFullYear());
 });
+
+document.querySelectorAll("[data-date]").forEach((element) => {
+  element.textContent = new Intl.DateTimeFormat("nl-BE", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
+});
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function runTypewriter() {
   const target = document.getElementById("typewriter");
@@ -37,8 +46,7 @@ function runTypewriter() {
     }
   };
 
-  const onSkip = () => finish();
-  document.addEventListener("pointerdown", onSkip, { once: true });
+  document.addEventListener("pointerdown", finish, { once: true });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") finish();
   }, { once: true });
@@ -63,12 +71,11 @@ function setupFlyIns() {
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+    { threshold: 0.1, rootMargin: "0px 0px -4% 0px" },
   );
 
   nodes.forEach((node) => {
-    const rect = node.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92) {
+    if (node.getBoundingClientRect().top < window.innerHeight * 0.92) {
       node.classList.add("is-in");
     } else {
       observer.observe(node);
@@ -76,64 +83,24 @@ function setupFlyIns() {
   });
 }
 
-function setupStoryRail() {
-  const rail = document.querySelector(".story-rail");
-  const links = [...document.querySelectorAll("[data-story]")];
-  const sections = links
-    .map((link) => document.getElementById(link.dataset.story))
-    .filter(Boolean);
-
-  if (!rail || !sections.length) return;
-
-  const setActive = (id) => {
-    links.forEach((link) => link.classList.toggle("is-active", link.dataset.story === id));
-  };
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -45% 0px", threshold: [0.08, 0.25, 0.5] },
-    );
-    sections.forEach((section) => observer.observe(section));
-  }
-
-  const updateProgress = () => {
-    const maximum = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const value = Math.max(0, Math.min(1, window.scrollY / maximum));
-    rail.style.setProperty("--rail-progress", `${value * 100}%`);
-  };
-
-  updateProgress();
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
-}
-
 function setupParallax() {
   const portrait = document.querySelector("[data-parallax]");
-  const hero = document.querySelector(".hero");
+  const hero = document.querySelector(".masthead");
   if (!portrait || !hero || reduceMotion) return;
   if (!window.matchMedia("(pointer: fine)").matches) return;
 
   hero.addEventListener("pointermove", (event) => {
     const box = hero.getBoundingClientRect();
-    const x = ((event.clientX - box.left) / box.width - 0.5) * 10;
-    const y = ((event.clientY - box.top) / box.height - 0.5) * 10;
-    portrait.style.setProperty("--px", `${x}px`);
-    portrait.style.setProperty("--py", `${y}px`);
+    const x = ((event.clientX - box.left) / box.width - 0.5) * 8;
+    const y = ((event.clientY - box.top) / box.height - 0.5) * 8;
+    portrait.style.transform = `translate(${x}px, ${y}px)`;
   });
 
   hero.addEventListener("pointerleave", () => {
-    portrait.style.setProperty("--px", "0px");
-    portrait.style.setProperty("--py", "0px");
+    portrait.style.transform = "translate(0, 0)";
   });
 }
 
 runTypewriter();
 setupFlyIns();
-setupStoryRail();
 setupParallax();
