@@ -15,7 +15,8 @@ const types = {
 createServer(async (request, response) => {
   const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
   const relative = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
-  const file = normalize(join(root, relative));
+  const target = extname(relative) ? relative : join(relative, "index.html");
+  const file = normalize(join(root, target));
 
   if (!file.startsWith(normalize(root))) {
     response.writeHead(403).end("Forbidden");

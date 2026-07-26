@@ -261,6 +261,91 @@ img { display: block; max-width: 100%; }
   color: var(--muted);
   font: 400 16px/1.55 var(--serif);
 }
+.language-switch {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+}
+.language-switch a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+.language-switch a:hover,
+.language-switch a:focus-visible,
+.language-switch a[aria-current="page"] {
+  color: var(--acid);
+  text-decoration-color: currentColor;
+}
+.proof-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 24px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.proof-points div {
+  display: grid;
+  gap: 3px;
+  min-width: 156px;
+  padding: 13px 16px;
+  background: var(--panel-2);
+}
+.proof-points strong {
+  color: var(--acid);
+  font: 400 28px/1 var(--serif);
+  letter-spacing: -.035em;
+}
+.proof-points span {
+  color: var(--muted);
+  font: 700 10px/1.35 var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.tool-group {
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid var(--rule);
+}
+.tool-group h3 {
+  margin: 0;
+  color: var(--ink);
+  font: 400 clamp(26px, 3vw, 38px)/1 var(--serif);
+  letter-spacing: -.035em;
+}
+.tool-group > p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.tool-group .columns { margin-top: 18px; }
+.latest-post {
+  display: grid;
+  gap: 5px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 24px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--coral);
+  background: rgba(240, 120, 74, .08);
+}
+.latest-post p {
+  margin: 0;
+  color: var(--coral);
+  font: 700 10px/1.2 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.latest-post a {
+  color: var(--ink);
+  font: 400 17px/1.3 var(--serif);
+}
+.latest-post a:hover,
+.latest-post a:focus-visible { color: var(--coral); }
 
 .columns {
   display: grid;
@@ -302,16 +387,19 @@ img { display: block; max-width: 100%; }
   font-size: 14px;
   line-height: 1.45;
 }
+.tool-language {
+  color: var(--muted);
+  font: 700 10px/1.35 var(--mono);
+  letter-spacing: .03em;
+}
 .columns a.accent {
   background: linear-gradient(145deg, rgba(240, 120, 74, .28), rgba(240, 120, 74, .06));
   border-color: rgba(240, 120, 74, .45);
 }
 .columns a.wide {
   min-height: 130px;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 18px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  align-content: center;
   background: linear-gradient(90deg, rgba(62, 207, 142, .18), rgba(242, 238, 228, .03));
   border-color: rgba(62, 207, 142, .4);
 }

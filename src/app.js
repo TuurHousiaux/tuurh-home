@@ -101,6 +101,38 @@ function setupParallax() {
   });
 }
 
+async function loadLatestPost() {
+  const container = document.querySelector("[data-latest-post]");
+  if (!container) return;
+
+  try {
+    const response = await fetch("/blog/posts.json", { headers: { Accept: "application/json" } });
+    if (!response.ok) throw new Error("Blog feed unavailable");
+    const posts = await response.json();
+    const post = posts?.[0];
+    if (!post?.title || !post?.href) return;
+
+    const link = document.createElement("a");
+    link.href = `/blog/${post.href.replace(/^\/+/, "")}`;
+    const locale = document.documentElement.lang || "nl-BE";
+    const formattedDate = post.date
+      ? new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric" }).format(
+          new Date(`${post.date}T12:00:00`),
+        )
+      : post.dateLabel;
+    const label = formattedDate ? `${formattedDate} · ${post.title}` : post.title;
+    link.textContent = label;
+
+    container.replaceChildren();
+    const eyebrow = document.createElement("p");
+    eyebrow.textContent = "Laatste artikel";
+    container.append(eyebrow, link);
+  } catch {
+    // De vaste bloglink onder dit blok blijft beschikbaar als de feed tijdelijk niet bereikbaar is.
+  }
+}
+
 runTypewriter();
 setupFlyIns();
 setupParallax();
+loadLatestPost();
