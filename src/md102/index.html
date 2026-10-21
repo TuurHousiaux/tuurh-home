@@ -15,44 +15,124 @@
 @media print{.lab-step-toggle{border:0}.lab-workbench .button,.lab-reset{display:none}.lab-action{break-inside:avoid;box-shadow:none}}
 
 /* lab-workspace:start */
-/* Compact lab workspace: select a lab, then an exercise and a step. */
-.lab-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}
-.lab-picker a{display:flex;flex-direction:column;gap:8px;padding:22px;border:2px solid var(--bmu-border);border-radius:10px;background:white;text-decoration:none}
-.lab-picker a:hover,.lab-picker a.selected{border-color:var(--bmu-blue);background:var(--bmu-blue-light)}
-.lab-picker strong{font-size:1rem;color:var(--bmu-blue);line-height:1.45}
-.lab-picker small{font-size:.78rem;color:var(--bmu-muted)}
-.lab-grid{display:block!important}
-.lab-guide[hidden]{display:none!important}
-.lab-exercise{padding:0!important;border:1px solid var(--bmu-border)!important;border-radius:10px;margin:16px 0;overflow:hidden;scroll-margin-top:90px}
-.lab-exercise-summary{display:grid;grid-template-columns:1fr auto;gap:7px 14px;padding:20px;list-style:none;background:var(--bmu-blue-light);cursor:pointer}
-.lab-exercise-summary::-webkit-details-marker,.lab-action-summary::-webkit-details-marker{display:none}
-.lab-exercise-summary>.lab-number{grid-column:1}
-.lab-exercise-summary>h3{grid-column:1;font-size:clamp(1.05rem,2vw,1.3rem);margin:0;line-height:1.45}
-.lab-exercise-summary>.lab-exercise-progress{grid-column:1;margin:0;font-size:.78rem}
-.lab-exercise-summary:after{content:'+';grid-column:2;grid-row:1/4;align-self:center;font-size:1.5rem;color:var(--bmu-blue)}
-.lab-exercise[open]>.lab-exercise-summary:after{content:'−'}
-.lab-exercise-body{padding:8px 20px 22px;min-width:0}
-.lab-action-summary{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:12px;padding:16px 18px;list-style:none;background:var(--bmu-blue-light);cursor:pointer}
-.lab-action-summary h4{margin:0!important;font-size:.95rem!important;line-height:1.5}
-.lab-action-summary:after{content:'+';font-size:1.25rem;color:var(--bmu-blue)}
-.lab-action[open]>.lab-action-summary:after{content:'−'}
-.lab-action.is-done>.lab-action-summary{background:var(--bmu-gold-light)}
-.lab-action-body>.lab-step-toggle{display:flex;justify-content:flex-start;margin:22px 0 0;border-top:1px solid var(--bmu-border);padding:18px 0 0}
-.lab-guide h5{font-size:.92rem;color:var(--bmu-blue);margin:24px 0 9px}
-.lab-guide pre{max-width:100%;overflow-x:auto;background:var(--bmu-blue-dark);color:#e2eaf5;border-radius:7px;padding:18px;font-size:.8rem;line-height:1.7}
-.lab-guide pre code{background:none;color:inherit;padding:0;white-space:pre}
-.lab-guide .lab-table-wrap{max-width:100%;overflow-x:auto}
-.lab-guide th,.lab-guide td{overflow-wrap:anywhere}
-.lab-guide summary:focus-visible,.lab-picker a:focus-visible{outline:3px solid var(--bmu-red);outline-offset:3px}
-@media(max-width:760px){.lab-picker{grid-template-columns:1fr}.lab-picker a{padding:16px}.lab-exercise-summary{padding:16px}.lab-exercise-body{padding:4px 12px 18px}.lab-action-summary{grid-template-columns:25px 1fr auto;gap:8px;padding:13px}.lab-action-body{padding:6px 13px 16px}.lab-guide pre{padding:12px;font-size:.72rem}}
-
-.main-inner>section[hidden]{display:none!important}
+/* A lab workbook that fits beside the admin portal, with one task per page. */
+.main-inner>section[hidden],.lab-guide[hidden],[data-lab-page][hidden],.lab-app-toolbar[hidden]{display:none!important}
 .main-inner>.path-intro{margin-top:12px}
-@media print{.main-inner>section[hidden],.lab-guide[hidden]{display:block!important}}
+body.lab-active{background:var(--bmu-blue-dark)}
+.lab-active .sidebar,.lab-active .topbar,.lab-active .menu-overlay,.lab-active .footer{display:none!important}
+.lab-active .page{margin-left:0}
+.lab-active .main-inner{max-width:940px;padding:28px 24px 60px}
+.lab-active .labs-section{margin:0;padding:0;background:none;border:0;box-shadow:none}
+.lab-active .labs-section>h2,.lab-active .labs-section>p{color:white}
+.lab-active .labs-section>h2{font-size:clamp(1.8rem,4vw,2.7rem);margin:16px 0}
+.lab-active .labs-section>p{color:#cedcee;max-width:64ch}
+.lab-app-toolbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:22px;padding:14px 24px;background:#06182d;border-bottom:3px solid var(--bmu-gold);color:white}
+.lab-app-toolbar a{color:#fff;text-decoration:none;font-size:.85rem}
+.lab-app-brand{font-size:.7rem;letter-spacing:.12em;color:var(--bmu-gold);font-weight:800;margin-right:auto}
+.lab-open-window{background:transparent;color:white;border:1px solid #7d91a8;border-radius:5px;padding:9px 13px;font-size:.78rem;min-height:40px}
+.lab-open-window:hover{background:#193c61}
+.lab-is-selected>.badge,.lab-is-selected>h2,.lab-is-selected>p,.lab-is-selected>.lab-picker{display:none}
+.lab-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:28px 0}
+.lab-picker a{display:flex;flex-direction:column;gap:18px;padding:28px;border:0;border-top:5px solid var(--bmu-gold);border-radius:10px;background:white;text-decoration:none;box-shadow:0 8px 28px #0002}
+.lab-picker a:last-child{border-top-color:var(--bmu-red)}
+.lab-picker a:hover{background:#fff9e8;transform:translateY(-2px)}
+.lab-picker .lab-number{align-self:flex-start;background:var(--bmu-blue-dark);color:var(--bmu-gold);font-size:.8rem;padding:7px 12px}
+.lab-picker strong{font-size:1.25rem;color:var(--bmu-blue-dark);line-height:1.5}
+.lab-picker small{font-size:.8rem;color:var(--bmu-muted);border-top:1px solid var(--bmu-border);padding-top:16px}
+.lab-grid{display:block!important}
+.lab-guide{padding:0!important;background:transparent!important;border:0!important;border-radius:0;box-shadow:none!important}
+.lab-flow-header{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,280px);gap:10px 24px;margin-bottom:24px;color:white}
+.lab-flow-title{display:flex;align-items:center;gap:14px;min-width:0}
+.lab-flow-number{flex-shrink:0;font-size:.78rem;font-weight:800;background:var(--bmu-gold);color:#182336;padding:8px 12px;border-radius:4px}
+.lab-flow-course{font-size:.9rem;font-weight:650;line-height:1.5}
+.lab-exercise-jump{width:100%;min-width:0;border:1px solid #758da8;border-radius:5px;padding:10px 32px 10px 12px;background:#113152;color:white;font:inherit;font-size:.8rem;text-overflow:ellipsis}
+.lab-exercise-jump option{background:#0b2643;color:white}
+.lab-flow-status{font-size:.75rem;margin:5px 0 0;color:#d6e4f2}
+.lab-flow-progress{grid-column:1/-1;display:block;width:100%;height:6px;border:0;border-radius:4px;overflow:hidden;appearance:none;background:#ffffff25;accent-color:var(--bmu-gold)}
+.lab-flow-progress::-webkit-progress-bar{background:#ffffff25}
+.lab-flow-progress::-webkit-progress-value{background:var(--bmu-gold)}
+.lab-flow-progress::-moz-progress-bar{background:var(--bmu-gold)}
+.lab-page{padding:28px 34px 0!important;margin:0!important;border:0!important;border-top:5px solid var(--bmu-gold)!important;border-radius:10px!important;background:white!important;box-shadow:0 10px 30px #0002;min-width:0;scroll-margin-top:84px;overflow:hidden}
+.lab-page-label{font-size:.72rem!important;letter-spacing:.08em;font-weight:800;text-transform:uppercase;color:var(--bmu-blue)!important;margin:0 0 24px!important;padding-bottom:17px;border-bottom:1px solid var(--bmu-border)}
+.lab-overview-header h3{font-size:clamp(1.6rem,4vw,2.2rem)!important;line-height:1.25;margin:18px 0!important}
+.lab-overview-header .lab-path{display:none}
+.lab-overview-header .lab-number{background:var(--bmu-blue-dark);color:var(--bmu-gold);font-size:.85rem;padding:6px 12px}
+.lab-overview .lab-workbench{border:0;border-left:4px solid var(--bmu-red);background:#f4f7fb;padding:22px;margin:26px 0}
+.lab-overview .lab-workbench h4{font-size:1.2rem;margin:14px 0}
+.lab-overview .lab-preparation-link{display:block;font-size:.85rem;font-weight:650;margin:14px 0;color:var(--bmu-blue)}
+.lab-overview .lab-storage-note{font-size:.76rem}
+.lab-overview .lab-reset{font-size:.76rem}
+.lab-toc{padding:0;margin:28px 0}
+.lab-toc ol{display:grid;gap:10px}
+.lab-toc a{border-left:4px solid var(--bmu-blue-dark);background:#f6f8fb;border-radius:4px;grid-template-columns:25px minmax(0,1fr) auto}
+.lab-toc a:before{color:var(--bmu-blue)}
+.lab-toc a:hover{background:#fff6d9;border-left-color:var(--bmu-gold-dark)}
+.lab-exercise-intro>.lab-number{display:inline-block;background:var(--bmu-blue-dark);color:var(--bmu-gold);padding:7px 12px;font-size:.8rem}
+.lab-exercise-intro>h3{font-size:clamp(1.5rem,4vw,2rem)!important;line-height:1.3;margin:20px 0!important}
+.lab-exercise-intro .lab-target{background:var(--bmu-gold-light);border-left:4px solid var(--bmu-gold-dark);margin:22px 0;padding:18px 22px}
+.lab-exercise-intro .lab-target p{margin-bottom:0}
+.lab-exercise-intro .lab-context{padding:0;background:none;margin:26px 0;border:0}
+.lab-exercise-start{margin:16px 0 30px}
+.lab-page-alias{display:none}
+.lab-task-heading{display:flex;align-items:flex-start;gap:16px;margin:0 0 24px;padding:0 0 24px;border-bottom:2px solid var(--bmu-blue-dark)}
+.lab-task-heading .lab-step-number{background:var(--bmu-blue-dark);color:var(--bmu-gold);border-radius:5px;min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800}
+.lab-task-heading h4{font-size:clamp(1.25rem,3vw,1.65rem)!important;line-height:1.4;margin:0!important;color:var(--bmu-blue-dark)}
+.lab-task-heading .lab-action-type{font-size:.7rem;color:var(--bmu-muted);letter-spacing:0;text-transform:none;margin:0 0 7px;font-weight:600}
+.lab-guide .lab-action-body{padding:0!important;font-size:.97rem;line-height:1.8}
+.lab-guide h5{font-size:1rem;color:var(--bmu-blue-dark);margin:30px 0 12px;border-bottom:2px solid var(--bmu-gold);padding-bottom:8px}
+.lab-guide .lab-route{background:var(--bmu-blue-dark);color:#fff;border:0;border-left:4px solid var(--bmu-gold);border-radius:5px;padding:16px 20px;line-height:1.7;overflow-wrap:anywhere;font-size:.88rem;margin:24px 0}
+.lab-guide .lab-route strong{color:var(--bmu-gold);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+.lab-guide .lab-table-wrap{max-width:100%;margin:20px 0;border:1px solid #cbd5df;border-radius:6px;overflow-x:auto}
+.lab-guide table{width:100%;border-collapse:collapse;table-layout:fixed;margin:0;font-size:.86rem;line-height:1.65}
+.lab-guide th,.lab-guide td{overflow-wrap:anywhere;padding:12px 15px;border:0;border-bottom:1px solid #dce3ec;text-align:left;vertical-align:top}
+.lab-guide thead th{background:var(--bmu-blue-dark);color:white}
+.lab-guide tbody th{width:54%;background:#edf2f8;color:var(--bmu-blue-dark);font-weight:650}
+.lab-guide tbody td{background:#fffaf0;color:#202d40}
+.lab-guide tbody tr:last-child th,.lab-guide tbody tr:last-child td{border-bottom:0}
+.lab-guide pre{max-width:100%;overflow-x:auto;background:var(--bmu-blue-dark);color:#f4e9bc;border:0;border-left:4px solid var(--bmu-gold);border-radius:6px;padding:20px;font-size:.85rem;line-height:1.8;margin:22px 0}
+.lab-guide pre code{background:none;color:inherit;padding:0;white-space:pre}
+.lab-guide .lab-warning{background:#fff1f2;color:#781d2c;border-left:5px solid var(--bmu-red);padding:18px 22px;border-radius:5px;margin:24px 0}
+.lab-guide .keypoints:not(.lab-page){background:#fff6d9;border-left:4px solid var(--bmu-gold-dark);padding:16px 22px}
+.lab-guide .lab-page-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin:30px -34px 0;padding:22px 34px;background:var(--bmu-blue-dark);color:white;border-top:4px solid var(--bmu-gold)}
+.lab-page-footer>*{grid-column:1/-1}
+.lab-page-footer .lab-step-toggle{justify-content:flex-start;display:flex;gap:12px;background:none;color:white;border:0;margin:0;padding:0;font-size:.85rem;white-space:normal;line-height:1.6}
+.lab-step-toggle input{width:21px;height:21px;flex-shrink:0;accent-color:var(--bmu-gold);margin:2px 0 0}
+.lab-complete-next{background:var(--bmu-red);color:white;padding:14px 18px;border-radius:5px;min-height:48px;font-size:.95rem;font-weight:750;text-align:center;border:1px solid transparent}
+.lab-complete-next:hover{background:#a91c35}
+.lab-page-navigation{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.lab-page-navigation a{color:white;font-weight:650;font-size:.85rem;text-decoration:none;padding:10px 0;line-height:1.5}
+.lab-page-navigation a:last-child{text-align:right;color:var(--bmu-gold)}
+.lab-page-counter{font-size:.73rem;color:#c2d2e4;white-space:nowrap}
+.lab-action.is-done{border-top-color:var(--bmu-gold)!important}
+.lab-page a:focus-visible,.lab-page button:focus-visible,.lab-page input:focus-visible,.lab-app-toolbar a:focus-visible,.lab-open-window:focus-visible,.lab-exercise-jump:focus-visible,.lab-picker a:focus-visible{outline:3px solid var(--bmu-gold);outline-offset:4px}
+.lab-guide .lab-preparation-page .lab-objectives,.lab-guide .lab-preparation-page .lab-requirements{margin:26px 0}
+@media(max-width:760px){
+ .lab-active .main-inner{padding:20px 14px 35px}
+ .lab-app-toolbar{padding:10px 14px;gap:14px;flex-wrap:wrap}
+ .lab-app-brand{font-size:.63rem}.lab-library-link{margin-left:auto}
+ .lab-open-window{width:100%;padding:6px 10px;min-height:34px;font-size:.75rem}
+ .lab-picker{grid-template-columns:1fr;gap:16px}.lab-picker a{padding:22px}
+ .lab-flow-header{grid-template-columns:1fr;gap:12px;margin-bottom:18px}.lab-flow-title{align-items:flex-start}
+ .lab-flow-course{font-size:.85rem}.lab-flow-status{margin:0;font-size:.72rem}
+ .lab-page{padding:22px 20px 0!important;scroll-margin-top:126px}
+ .lab-page-label{font-size:.64rem!important;margin-bottom:20px!important;letter-spacing:.04em}
+ .lab-task-heading{gap:12px}.lab-task-heading .lab-step-number{min-width:34px;height:36px;font-size:.9rem}
+ .lab-task-heading h4{font-size:1.18rem!important}.lab-task-heading .lab-action-type{font-size:.68rem}
+ .lab-guide .lab-action-body{font-size:.94rem}
+ .lab-guide th,.lab-guide td{padding:10px;font-size:.79rem}
+ .lab-guide pre{padding:16px;font-size:.76rem}
+ .lab-guide .lab-route{padding:14px;font-size:.82rem}
+ .lab-guide .lab-warning{padding:16px}
+ .lab-guide .lab-page-footer{margin:26px -20px 0;padding:20px}
+ .lab-page-navigation{gap:8px}.lab-page-navigation a{font-size:.8rem}.lab-page-counter{font-size:.68rem}
+ .lab-toc a{grid-template-columns:24px minmax(0,1fr);gap:6px 10px;padding:12px}
+ .lab-toc-status{grid-column:2;justify-self:start}
+}
+@media print{.lab-app-toolbar,.lab-flow-header,.lab-page-footer{display:none!important}.main-inner>section[hidden],.lab-guide[hidden],[data-lab-page][hidden]{display:block!important}.lab-page{break-before:page;box-shadow:none;color:black}.lab-active .main-inner{max-width:none}}
 /* lab-workspace:end */
 </style></head><body>
 <section id="login" class="login" aria-labelledby="login-title"><div class="login-story"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><h1>Meer grip op<br>elke werkplek.</h1><p>Van de eerste inschrijving tot een veilige cloudwerkplek. Bouw stap voor stap aan je expertise als endpointbeheerder.</p><div class="login-number"><div><strong>08</strong><span>Learning Paths</span></div><div><strong>34</strong><span>modules</span></div><div><strong>Jouw</strong><span>volgende stap</span></div></div></div><div class="login-panel"><form id="login-form" class="login-card"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><span class="badge">Microsoft 365 · MD-102</span><h2 id="login-title">MD-102 Leeromgeving</h2><p class="muted">Voer het wachtwoord in om verder te gaan</p><label for="password">Wachtwoord</label><input type="password" id="password" autocomplete="current-password" required aria-describedby="login-error"><p id="login-error" class="login-error" role="alert" hidden></p><button class="button red" type="submit">Aanmelden <span aria-hidden="true">→</span></button><p class="login-note">Leer op je eigen tempo. Je modulevoortgang wordt in deze browser bewaard.</p></form></div></section><noscript><p class="noscript">Schakel JavaScript in om aan te melden, te navigeren en je voortgang bij te houden.</p></noscript>
-<div id="environment" hidden><a class="skip" href="#home">Ga naar de inhoud</a><header class="topbar"><button id="menu-toggle" class="menu-button" aria-controls="sidebar" aria-expanded="false" aria-label="Navigatie openen">☰</button><div class="topbar-title"><strong>MD-102</strong> Microsoft 365 Endpoint Administrator</div><button id="logout" class="logout">Afmelden ↗</button></header><nav id="sidebar" class="sidebar" aria-label="Hoofdnavigatie"><div class="nav-brand"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><div class="nav-caption">Endpoint Academy / MD-102</div><button id="menu-close" class="close-menu" aria-label="Navigatie sluiten">×</button></div><div class="nav-content"><label for="search" class="search-label">Zoek in de leeromgeving</label><input id="search" class="search-input" type="search" placeholder="Bijv. BitLocker, BYOD, herstel…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden></div><a class="nav-home active" href="#home">⌂ &nbsp; Home</a><div class="nav-label">JOUW LEERTRAJECT</div><div id="module-navigation"></div><a class="nav-special" href="#labs">▤ &nbsp; Labs</a><a class="nav-lab" href="#lab-lp3-03">03 · Applicaties beheren</a><a class="nav-lab" href="#lab-lp4-04">Lab 04 · Toestellen beveiligen</a><a class="nav-special" href="#bronnen">↗ &nbsp; Bronnen</a></div><div class="nav-bottom"><div class="progress-heading"><span id="progress-count">0 voltooid</span><strong id="progress-percent">0%</strong></div><div class="progress-track" role="progressbar" aria-label="Totale modulevoortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" style="width:0%"></div></div><button id="reset-progress" class="reset">Voortgang wissen</button></div></nav><button id="menu-overlay" class="overlay" aria-label="Navigatie sluiten" hidden></button><main id="main" class="page"><div class="main-inner"><section id="home" data-main-section aria-labelledby="home-title"><div class="hero"><span class="badge">BoostMeUp Academy · MD-102</span><h1 id="home-title" tabindex="-1">Beheer met inzicht.<br>Beveilig met vertrouwen.</h1><p class="eyebrow">Microsoft 365 Endpoint Administrator</p><p>Leer apparaten en apps uitrollen, beheren en beveiligen met Microsoft Intune en Microsoft Entra ID. Van een sterke basis naar gecontroleerde automatisering en cloudwerkplekken.</p><div class="hero-actions"><a id="continue-learning" class="button red" href="#lp1-module-1">Start je leertraject →</a><a class="button secondary" href="#leertraject">Bekijk Learning Paths</a></div><div class="hero-stats"><div><strong id="path-total">08</strong><span>Learning Paths</span></div><div><strong id="module-total">34</strong><span>modules</span></div><div><strong id="hero-progress">0%</strong><span>jouw voortgang</span></div></div></div><div id="leertraject" class="section-heading"><div><span class="eyebrow">Van fundament naar verdieping</span><h2>Jouw leertraject</h2></div><span class="muted" style="font-size:.8rem">Kies je volgende stap</span></div><div class="path-grid">
+<div id="environment" hidden><a class="skip" href="#home">Ga naar de inhoud</a><header class="topbar"><button id="menu-toggle" class="menu-button" aria-controls="sidebar" aria-expanded="false" aria-label="Navigatie openen">☰</button><div class="topbar-title"><strong>MD-102</strong> Microsoft 365 Endpoint Administrator</div><button id="logout" class="logout">Afmelden ↗</button></header><nav id="sidebar" class="sidebar" aria-label="Hoofdnavigatie"><div class="nav-brand"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><div class="nav-caption">Endpoint Academy / MD-102</div><button id="menu-close" class="close-menu" aria-label="Navigatie sluiten">×</button></div><div class="nav-content"><label for="search" class="search-label">Zoek in de leeromgeving</label><input id="search" class="search-input" type="search" placeholder="Bijv. BitLocker, BYOD, herstel…" autocomplete="off" aria-controls="search-results"><div id="search-results" class="search-results" hidden></div><a class="nav-home active" href="#home">⌂ &nbsp; Home</a><div class="nav-label">JOUW LEERTRAJECT</div><div id="module-navigation"></div><a class="nav-special" href="#labs">▤ &nbsp; Labs</a><a class="nav-lab" href="#lab-lp3-03">Lab 03 · Applicaties beheren</a><a class="nav-lab" href="#lab-lp4-04">Lab 04 · Toestellen beveiligen</a><a class="nav-special" href="#bronnen">↗ &nbsp; Bronnen</a></div><div class="nav-bottom"><div class="progress-heading"><span id="progress-count">0 voltooid</span><strong id="progress-percent">0%</strong></div><div class="progress-track" role="progressbar" aria-label="Totale modulevoortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" style="width:0%"></div></div><button id="reset-progress" class="reset">Voortgang wissen</button></div></nav><button id="menu-overlay" class="overlay" aria-label="Navigatie sluiten" hidden></button><main id="main" class="page"><div class="main-inner"><section id="home" data-main-section aria-labelledby="home-title"><div class="hero"><span class="badge">BoostMeUp Academy · MD-102</span><h1 id="home-title" tabindex="-1">Beheer met inzicht.<br>Beveilig met vertrouwen.</h1><p class="eyebrow">Microsoft 365 Endpoint Administrator</p><p>Leer apparaten en apps uitrollen, beheren en beveiligen met Microsoft Intune en Microsoft Entra ID. Van een sterke basis naar gecontroleerde automatisering en cloudwerkplekken.</p><div class="hero-actions"><a id="continue-learning" class="button red" href="#lp1-module-1">Start je leertraject →</a><a class="button secondary" href="#leertraject">Bekijk Learning Paths</a></div><div class="hero-stats"><div><strong id="path-total">08</strong><span>Learning Paths</span></div><div><strong id="module-total">34</strong><span>modules</span></div><div><strong id="hero-progress">0%</strong><span>jouw voortgang</span></div></div></div><div id="leertraject" class="section-heading"><div><span class="eyebrow">Van fundament naar verdieping</span><h2>Jouw leertraject</h2></div><span class="muted" style="font-size:.8rem">Kies je volgende stap</span></div><div class="path-grid">
 <a class="path-card" href="#lp1" data-path-card="1"><span class="badge">Learning Path 01</span><h3>Infrastructuur, identiteit en inschrijving</h3><p>Je leert hoe cloudbeheer, apparaatidentiteit en toegangsbeleid samen een moderne werkplek ondersteunen.</p><span class="card-bottom"><span>5 modules <span class="card-progress" data-path-progress="1">· 0 voltooid</span></span><span aria-hidden="true">→</span></span></a>
 <a class="path-card" href="#lp2" data-path-card="2"><span class="badge">Learning Path 02</span><h3>Apparaten beheren en onderhouden</h3><p>Je maakt configuratie- en compliancebeleid, kiest doelgroepen en onderzoekt conflicten.</p><span class="card-bottom"><span>4 modules <span class="card-progress" data-path-progress="2">· 0 voltooid</span></span><span aria-hidden="true">→</span></span></a>
 <a class="path-card" href="#lp3" data-path-card="3"><span class="badge">Learning Path 03</span><h3>Applicaties beheren</h3><p>Je kiest appsoorten, installatiecontext, detectieregels en toewijzingen voor betrouwbare softwaredistributie.</p><span class="card-bottom"><span>5 modules <span class="card-progress" data-path-progress="3">· 0 voltooid</span></span><span aria-hidden="true">→</span></span></a>
@@ -1712,7 +1792,7 @@
 <p class="module-source">Primaire cursusbron: MD-102T00A-ENU-PowerPoint_08.pptx · module 4, vanaf slide 31. Nederlandse uitleg: redactionele uitwerking op basis van deze bron. Bronslides en bronvragen zijn hierboven opgenomen; labslides zijn overgeslagen.</p>
 <ul class="source-list"><li><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/provisioning" target="_blank" rel="noopener noreferrer">Windows 365: provisioning ↗</a></li><li><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/" target="_blank" rel="noopener noreferrer">Azure Virtual Desktop ↗</a></li><li><a href="https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/azure-virtual-desktop-multi-session" target="_blank" rel="noopener noreferrer">Intune en AVD multi-session ↗</a></li></ul>
 <div class="module-complete"><button class="button complete-button" type="button" data-complete="lp8-module-4" aria-pressed="false">Markeer als voltooid</button><span class="completion-note">Je voortgang wordt lokaal in deze browser bewaard.</span></div></div></section>
-<section id="labs" class="labs-section" data-main-section aria-labelledby="labs-title"><span class="badge">Van kennis naar praktijk</span><h2 id="labs-title" tabindex="-1">Praktijklabo’s</h2><p>Pas de theorie toe in de Contoso Healthcare-omgeving. Kies Lab 03 of Lab 04. Open een oefening en vervolgens het onderdeel waaraan je werkt. Je voortgang wordt per lab bewaard.</p><nav class="lab-picker" aria-label="Kies een praktijklab"><a href="#lab-lp3-03" data-lab-select="lab-lp3-03"><span class="lab-number">Lab 03 · 7 oefeningen</span><strong>Applicaties beheren met Microsoft Intune</strong><small data-lab-card-progress>Voortgang laden…</small></a><a href="#lab-lp4-04" data-lab-select="lab-lp4-04"><span class="lab-number">Lab 04 · 6 oefeningen</span><strong>Toestellen beveiligen met Microsoft Intune</strong><small data-lab-card-progress>Voortgang laden…</small></a></nav><div id="lab-cards" class="lab-grid"><article class="lab-card lab-guide" id="lab-lp3-03" aria-labelledby="lab03-title"><header><span class="lab-path">Learning Path 3</span> <span class="lab-number">Lab 03</span><h3 id="lab03-title" tabindex="-1">Applicaties beheren met Microsoft Intune</h3><div class="lab-meta"><span>7 oefeningen</span><span>Contoso Healthcare</span><span>Applicatiebeheer</span></div></header><div class="lab-workbench"><span class="badge">Praktijkopdracht · Zelf uitvoeren</span><h4>Open je labomgeving. Ga aan de slag.</h4><p>Voer de genummerde stappen uit in Intune en op SEA-DEV1. Neem de waarden uit de configuratietabellen over. Vink een stap af zodra je die hebt uitgevoerd en gecontroleerd.</p><a class="button red" data-lab-resume href="#lab-lp3-03-oefening-1">Begin met oefening 1 →</a><p class="lab-total-status" data-lab-total-status role="status">0 van 52 stappen afgevinkt · 0 van 7 oefeningen afgerond</p><progress class="lab-progress-bar" data-lab-progress value="0" max="52" aria-label="Voortgang Lab 03"></progress><p class="lab-storage-note">Je vinkjes worden automatisch bewaard in deze browser.</p><button type="button" class="lab-reset" data-lab-reset>Labvoortgang wissen</button></div><details class="disclosure lab-preparation"><summary>Voor je start: situatie, leerdoelen en vereisten</summary><div class="disclosure-content">
+<section id="labs" class="labs-section" data-main-section aria-labelledby="labs-title"><span class="badge">Van kennis naar praktijk</span><h2 id="labs-title" tabindex="-1">Praktijklabo’s</h2><p>Pas de theorie toe in de Contoso Healthcare-omgeving. Kies je lab en volg het werkboek pagina voor pagina. Voer de opdrachten uit in je eigen omgeving en ga onderaan verder naar de volgende stap.</p><nav class="lab-picker" aria-label="Kies een praktijklab"><a href="#lab-lp3-03" data-lab-select="lab-lp3-03"><span class="lab-number">Lab 03 · 7 oefeningen</span><strong>Applicaties beheren met Microsoft Intune</strong><small data-lab-card-progress>Voortgang laden…</small></a><a href="#lab-lp4-04" data-lab-select="lab-lp4-04"><span class="lab-number">Lab 04 · 6 oefeningen</span><strong>Toestellen beveiligen met Microsoft Intune</strong><small data-lab-card-progress>Voortgang laden…</small></a></nav><div id="lab-cards" class="lab-grid"><article class="lab-card lab-guide" id="lab-lp3-03" aria-labelledby="lab03-title"><header><span class="lab-path">Learning Path 3</span> <span class="lab-number">Lab 03</span><h3 id="lab03-title" tabindex="-1">Applicaties beheren met Microsoft Intune</h3><div class="lab-meta"><span>7 oefeningen</span><span>Contoso Healthcare</span><span>Applicatiebeheer</span></div></header><div class="lab-workbench"><span class="badge">Praktijkopdracht · Zelf uitvoeren</span><h4>Open je labomgeving. Ga aan de slag.</h4><p>Voer de genummerde stappen uit in Intune en op SEA-DEV1. Neem de waarden uit de configuratietabellen over. Vink een stap af zodra je die hebt uitgevoerd en gecontroleerd.</p><a class="button red" data-lab-resume href="#lab-lp3-03-oefening-1">Begin met oefening 1 →</a><p class="lab-total-status" data-lab-total-status role="status">0 van 52 stappen afgevinkt · 0 van 7 oefeningen afgerond</p><progress class="lab-progress-bar" data-lab-progress value="0" max="52" aria-label="Voortgang Lab 03"></progress><p class="lab-storage-note">Je vinkjes worden automatisch bewaard in deze browser.</p><button type="button" class="lab-reset" data-lab-reset>Labvoortgang wissen</button></div><details class="disclosure lab-preparation"><summary>Voor je start: situatie, leerdoelen en vereisten</summary><div class="disclosure-content">
 <h4>Situatie</h4>
 <p>Je bent verantwoordelijk voor het beheer van applicaties binnen Contoso Healthcare. De toestellen en gebruikersgroepen zijn al aangemaakt en de toestellen zijn ingeschreven in Microsoft Intune.</p>
 <p>In dit labo implementeer je applicaties via verschillende methoden. Je beheert ook applicatie-upgrades, beschermt bedrijfsgegevens en onderzoekt de status van applicatiedeployments.</p>
@@ -1979,7 +2059,7 @@
 <ul><li>Microsoft To Do als verplichte Microsoft Store-app uitgerold;</li><li>een oudere versie van 7-Zip als Win32-app verpakt en geïnstalleerd;</li><li>Microsoft 365 Apps via Current Channel geïmplementeerd;</li><li>Google Chrome via de Enterprise App Catalog aangeboden;</li><li>de oudere versie van 7-Zip via echte supersedence vervangen door de nieuwste beschikbare versie;</li><li>App Protection Policies voor iOS/iPadOS en Android aangemaakt;</li><li>applicatiedeployments gemonitord;</li><li>installatiefouten onderzocht;</li><li>installatiestatussen naar CSV geëxporteerd;</li><li>een assignment conflict gecreëerd, onderzocht en opgelost.</li></ul>
 </section><a class="button secondary" href="#labs">↑ Naar Praktijklabo’s</a></article><!-- lab04:start -->
 <article class="lab-card lab-guide" id="lab-lp4-04" data-lab-guide="04" aria-labelledby="lab04-title"><header><span class="lab-path">Learning Path 4</span> <span class="lab-number">Lab 04</span><h3 id="lab04-title" tabindex="-1">Toestellen beveiligen met Microsoft Intune</h3><div class="lab-meta"><span>6 oefeningen</span><span>Contoso Healthcare</span><span>Endpoint security</span></div></header>
-<div class="lab-workbench"><span class="badge">Praktijkopdracht · Zelf uitvoeren</span><h4>Beveilig je Contoso Healthcare-omgeving.</h4><p>Open één oefening en één onderdeel tegelijk. Neem de waarden uit de configuratietabellen over en vink een onderdeel af zodra je het hebt uitgevoerd en gecontroleerd.</p><a class="button red" data-lab-resume href="#lab-lp4-04-oefening-1">Begin met oefening 1 →</a><p class="lab-total-status" data-lab-total-status role="status">0 van 28 stappen afgevinkt · 0 van 6 oefeningen afgerond</p><progress class="lab-progress-bar" data-lab-progress value="0" max="28" aria-label="Voortgang Lab 04"></progress><p class="lab-storage-note">Je vinkjes worden automatisch bewaard in deze browser.</p><button type="button" class="lab-reset" data-lab-reset>Labvoortgang wissen</button></div>
+<div class="lab-workbench"><span class="badge">Praktijkopdracht · Zelf uitvoeren</span><h4>Beveilig je Contoso Healthcare-omgeving.</h4><p>Voer de opdracht op elke pagina uit in je eigen labomgeving. Neem de waarden uit de configuratietabellen over en ga onderaan verder naar de volgende stap.</p><a class="button red" data-lab-resume href="#lab-lp4-04-oefening-1">Begin met oefening 1 →</a><p class="lab-total-status" data-lab-total-status role="status">0 van 28 stappen afgevinkt · 0 van 6 oefeningen afgerond</p><progress class="lab-progress-bar" data-lab-progress value="0" max="28" aria-label="Voortgang Lab 04"></progress><p class="lab-storage-note">Je vinkjes worden automatisch bewaard in deze browser.</p><button type="button" class="lab-reset" data-lab-reset>Labvoortgang wissen</button></div>
 <details class="disclosure lab-preparation"><summary>Voor je start: situatie, leerdoelen en vereisten</summary><div class="disclosure-content"><h4>Situatie</h4>
 <p>Je bent verantwoordelijk voor de beveiliging van de toestellen binnen Contoso Healthcare. De toestellen zijn ingeschreven in Microsoft Intune en de benodigde applicaties zijn geïmplementeerd.</p>
 <p>In deze lab koppel je Microsoft Intune aan Microsoft Defender for Endpoint, implementeer je endpoint security policies en configureer je BitLocker. Je implementeert ook Microsoft Tunnel Gateway en Microsoft Cloud PKI. Tot slot gebruik je Microsoft Defender en Conditional Access om de beveiligingsstatus te controleren.</p>

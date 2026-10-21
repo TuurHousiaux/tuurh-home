@@ -17,6 +17,8 @@ def replace_between(source, start, end, content):
 page = SITE / 'index.html'
 js = SITE / 'app.js'
 html = replace_between(page.read_text(), '<!-- lab04:start -->', '<!-- lab04:end -->', render_lab04())
+html = html.replace('>03 · Applicaties beheren</a>', '>Lab 03 · Applicaties beheren</a>')
+html = html.replace('Kies Lab 03 of Lab 04. Open een oefening en vervolgens het onderdeel waaraan je werkt. Je voortgang wordt per lab bewaard.', 'Kies je lab en volg het werkboek pagina voor pagina. Voer de opdrachten uit in je eigen omgeving en ga onderaan verder naar de volgende stap.')
 html = replace_between(html, '/* lab-workspace:start */', '/* lab-workspace:end */', (HERE / 'lab_workspace.css').read_text().rstrip())
 app = replace_between(js.read_text(), '// lab-workspace:start', '// lab-workspace:end', (HERE / 'lab_workspace.js').read_text().rstrip())
 page.write_text(html)
