@@ -112,3 +112,30 @@ body.lab-active{background:var(--bmu-blue-dark)}
  .lab-toc-status{grid-column:2;justify-self:start}
 }
 @media print{.lab-app-toolbar,.lab-flow-header,.lab-page-footer{display:none!important}.main-inner>section[hidden],.lab-guide[hidden],[data-lab-page][hidden]{display:block!important}.lab-page{break-before:page;box-shadow:none;color:black}.lab-active .main-inner{max-width:none}}
+/* Exercises have their own short page sequence and a single confirmation. */
+.lab-card-group-title{font-size:1.2rem!important;margin:32px 0 16px!important;color:var(--bmu-blue-dark)}
+.lab-exercise-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0 30px}
+.lab-exercise-card{display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid var(--bmu-border);border-left:4px solid var(--bmu-blue-dark);border-radius:6px;text-decoration:none;background:#f7f9fc;min-width:0}
+.lab-exercise-card:hover{background:#fff8e3;border-left-color:var(--bmu-gold-dark)}
+.lab-card-number{font-size:.72rem;font-weight:800;letter-spacing:.04em;color:var(--bmu-blue)}
+.lab-exercise-card strong{font-size:1rem;line-height:1.5;color:var(--bmu-blue-dark)}
+.lab-card-status{font-size:.75rem;color:var(--bmu-muted);margin-top:auto}
+.lab-exercise-card.is-done .lab-card-status{color:#765704}
+.lab-extra-intro,.lab-overview-intro{font-size:.95rem;line-height:1.8}
+.lab-overview>.lab-preparation-link{display:inline-block;margin:8px 0 12px;color:var(--bmu-blue);font-size:.88rem;font-weight:650}
+.lab-overview>.lab-storage-note{font-size:.76rem;color:var(--bmu-muted);margin:24px 0}
+.lab-piece-heading>h3{font-size:clamp(1.35rem,3vw,1.8rem);line-height:1.4;margin:18px 0}
+.lab-piece-title{color:var(--bmu-blue);font-size:1.05rem;font-weight:700;margin:12px 0 22px}
+.lab-exercise-page>.lab-number{display:none}
+.lab-exercise-page>.lab-target{margin:24px 0;background:var(--bmu-gold-light);border-left:4px solid var(--bmu-gold-dark);padding:16px 20px}
+.lab-exercise-page>.lab-context{padding:0;background:none;border:0;margin:24px 0}
+.lab-piece-content{min-width:0;margin-top:26px}
+.lab-page .lab-instruction{padding:0!important;margin:0 0 28px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+.lab-page .lab-instruction+.lab-instruction{padding-top:24px!important;border-top:2px solid var(--bmu-gold)!important}
+.lab-page .lab-instruction>.lab-action-header{display:block;background:none;border:0;padding:0;margin:0 0 18px}
+.lab-page .lab-instruction>.lab-action-header h4{font-size:1.12rem;line-height:1.5;margin:0;color:var(--bmu-blue-dark)}
+.lab-page .lab-complete-exercise{background:var(--bmu-red);color:white;padding:14px 18px;border:0;border-radius:5px;min-height:48px;font-size:.95rem;font-weight:750}
+.lab-page .lab-complete-exercise:hover{background:#a91c35}
+@media(max-width:760px){.lab-exercise-cards{grid-template-columns:1fr}.lab-exercise-card{padding:18px}.lab-piece-title{font-size:.95rem}}
+
+.lab-piece-content>.lab-instruction:only-child>.lab-action-header{display:none}

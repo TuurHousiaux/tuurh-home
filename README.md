@@ -43,11 +43,15 @@ Worker naar de juiste Azure Static Web App gestuurd.
 
 De Nederlandstalige cursus staat op `/md102/` en wordt samen met de homepage gepubliceerd. De bron is `../md102/docs/index.html`; het inline script is voor de bestaande Content Security Policy afgesplitst naar `src/md102/app.js`. Neem bij cursusupdates beide bestanden opnieuw over. Het cursuswachtwoord wordt via het bestaande cursuskanaal gedeeld.
 
-### Labs en compacte navigatie
+### Labs en zelfstandige oefeningen
 
-De leeromgeving toont het gekozen overzicht, leerpad, de geselecteerde module of de praktijklabs. Zoeken doorzoekt alle theorie en labonderdelen en opent direct de juiste pagina. Lab 03 en Lab 04 hebben een eigen werkplan, voortgang en hervatknop. Elk lab is een werkboek met een overzicht, voorbereiding, oefeningsintroducties, één uitvoerstap per pagina en het eindresultaat. Onderaan staan Vorige, Volgende en Uitgevoerd en verder. De labweergave vervangt de cursuszijbalk; Open als werkvenster opent de huidige pagina in een smal venster met behoud van de cursusaanmelding. Diepblauw vormt de werkruimte, goud markeert voortgang en rood de actie om af te werken en door te gaan. Bestaande stap-ID’s en de opslagsleutel van Lab 03 zijn behouden. Het wissen van een lab raakt andere labs of de theorievoortgang niet.
+Lab 03 staat op `/md102/lab-03/` en Lab 04 op `/md102/lab-04/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
 
-Lab 04 bevat de aangeleverde beveiligingsopdracht met zes oefeningen en 28 afvinkbare onderdelen. Bewerk de inhoud in `scripts/md102/lab04.py` en de werkruimte in `scripts/md102/lab_workspace.js` en `.css`. Bouw deze onderdelen opnieuw met:
+Elke oefening heeft een eigen korte reeks pagina’s. Vorige en Volgende blijven binnen die oefening. De laatste pagina keert terug naar het laboverzicht en heeft één knop Oefening uitgevoerd. Kleine configuratiestappen zijn per werkfase gecombineerd; losse vinkjes en tellers voor uitgevoerde stappen zijn verwijderd. Bestaande instructie-ID’s en opgeslagen bevestigingen blijven geldig, en de laatst bekeken pagina wordt per oefening onthouden.
+
+De cursuszijbalk verdwijnt tijdens het werken. Open als werkvenster opent de huidige pagina in een smal venster met behoud van de cursusaanmelding. Zoeken vindt ook de extra oefeningen.
+
+Bewerk de extra opdrachten in `scripts/md102/lab03_extra.py`, Lab 04 in `scripts/md102/lab04.py` en de werkruimte in `scripts/md102/lab_workspace.js` en `.css`. De updater bouwt ook de afzonderlijke labpagina’s:
 
 ```bash
 python3 scripts/md102/update.py

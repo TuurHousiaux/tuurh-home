@@ -32,222 +32,169 @@ if('IntersectionObserver' in window){const observer=new IntersectionObserver(ent
 $$('.quiz').forEach(form=>form.addEventListener('submit',event=>{event.preventDefault();let score=0;const fields=[...form.querySelectorAll('.quiz-question')];fields.forEach(field=>{const selected=field.querySelector('input:checked'),correct=selected&&selected.value===field.dataset.answer,feedback=field.querySelector('.quiz-feedback');if(correct)score++;feedback.hidden=false;feedback.className='quiz-feedback '+(correct?'correct':'incorrect');feedback.textContent=(correct?'Juist. ':'Nog niet juist. ')+feedback.dataset.explanation;});form.querySelector('.quiz-score').textContent=`${score} van ${fields.length} antwoorden juist.`;}));
 
 // lab-workspace:start
-// Lab workbook: overview, preparation, exercise introductions and one task per page.
-// Keep existing step IDs and storage keys so saved work and links still work.
-const labGuides=$$('.lab-guide');
-const contentSections=$$('.main-inner > section');
-const labModels=new Map();
-const labAliases=new Map();
-const labKey='bmu-md102-lab-steps-v1';
-const labPositionKey='bmu-md102-lab-position-v1';
+// Independent exercise workbooks. Navigation stays inside the chosen exercise.
+// Existing instruction IDs and saved confirmations remain valid.
+const labGuides=$$('.lab-guide'),contentSections=$$('.main-inner > section');
+const labModels=new Map(),labAliases=new Map(),availableStepIds=new Set();
+const labKey='bmu-md102-lab-steps-v1',labPositionKey='bmu-md102-lab-position-v1';
 let labDone=new Set(),labStorage=true,labPositions={};
-
-function labElement(tag,className,text){
- const element=document.createElement(tag);element.className=className;
- if(text)element.textContent=text;
- return element;
-}
-function labLink(text,id,className=''){const link=labElement('a',className,text);link.href='#'+id;return link;}
+function labElement(tag,className,text){const node=document.createElement(tag);node.className=className;if(text)node.textContent=text;return node;}
+function labLink(text,id,className=''){const node=labElement('a',className,text);node.href='#'+id;return node;}
 function unwrapLabDisclosure(details){
- const section=labElement('section',details.className);
- if(details.id)section.id=details.id;
- const title=labElement('h3','',details.querySelector(':scope > summary')?.textContent);
- const content=details.querySelector(':scope > .disclosure-content');
- section.append(title);
- if(content)section.append(...content.childNodes);
+ const section=labElement('section',details.className);if(details.id)section.id=details.id;
+ section.append(labElement('h3','',details.querySelector(':scope > summary')?.textContent));
+ const content=details.querySelector(':scope > .disclosure-content');if(content)section.append(...content.childNodes);
  details.replaceWith(section);return section;
 }
-
+// Group small configuration actions into coherent pieces of the same exercise.
+const labGrouping={
+ '03':{
+  '1':[[2,'De app publiceren'],[1,'De installatie controleren']],
+  '2':[[1,'Het Win32-package voorbereiden'],[3,'De applicatie toevoegen'],[4,'Requirements en detectie instellen'],[2,'Toewijzen en controleren']],
+  '3':[[3,'Microsoft 365 Apps toevoegen'],[1,'De suite configureren'],[2,'Toewijzen en controleren']],
+  '4':[[3,'De catalogusapp selecteren'],[2,'Configureren en toewijzen'],[1,'De installatie controleren']],
+  '5':[[1,'De nieuwe versie voorbereiden'],[6,'Het nieuwe package configureren'],[3,'Supersedence en toewijzing'],[1,'De upgrade controleren']],
+  '6':[[2,'iOS/iPadOS: policy en apps'],[4,'iOS/iPadOS: bescherming en toegang'],[2,'Android: policy en apps'],[4,'Android: bescherming en toegang']],
+  '7':[[1,'Monitoringrapporten bekijken'],[1,'Een installatiefout onderzoeken'],[1,'Installatiestatus exporteren'],[1,'Een assignment conflict onderzoeken']]
+ },
+ '04':{
+  '1':[[2,'Defender en Intune verbinden'],[1,'Windows-toestellen onboarden'],[1,'De onboarding controleren']],
+  '2':[[1,'De security baseline implementeren'],[1,'Antivirus configureren'],[1,'Windows Firewall configureren'],[2,'ASR voor pilootgroep en bredere omgeving']],
+  '3':[[1,'BitLocker configureren'],[2,'Encryptie en recovery key controleren']],
+  '4':[[2,'De Linux-server voorbereiden'],[2,'Serverconfiguratie en site maken'],[1,'Microsoft Tunnel installeren'],[1,'De serverstatus controleren'],[1,'Het VPN-profiel maken']],
+  '5':[[2,'Root CA en Issuing CA maken'],[2,'De certificaatketen implementeren'],[1,'Het SCEP-profiel maken'],[1,'De certificaatinschrijving controleren']],
+  '6':[[1,'Secure Score analyseren'],[1,'Threat detections en alerts onderzoeken'],[1,'Conditional Access met What If testen']]
+ }
+};
 labGuides.forEach((guide,index)=>{
  const number=String(index+3).padStart(2,'0');guide.dataset.labGuide=number;
  const title=guide.querySelector(':scope > header h3').textContent;
- const exercises=[...guide.querySelectorAll('[data-lab-exercise]')];
+ const sourceExercises=[...guide.querySelectorAll('[data-lab-exercise]')];
+ const librarySummary=$(`[data-lab-select="${guide.id}"] small`);if(librarySummary){librarySummary.textContent=number==='03'?'Applicatiebeheer en zelfstandige extra opdrachten':'Beveiliging, Microsoft Tunnel en Cloud PKI';librarySummary.removeAttribute('data-lab-card-progress');}
  const overview=labElement('section','lab-page lab-overview');overview.id=`lab${number}-overzicht`;
- const preparation=unwrapLabDisclosure(guide.querySelector('.lab-preparation'));
- preparation.className='lab-page lab-preparation-page';preparation.id=`lab${number}-voorbereiding`;
- const outcomeNode=guide.querySelector('.lab-outcome');
- const outcome=outcomeNode.tagName==='DETAILS'?unwrapLabDisclosure(outcomeNode):outcomeNode;
+ const preparation=unwrapLabDisclosure(guide.querySelector('.lab-preparation'));preparation.className='lab-page lab-preparation-page';preparation.id=`lab${number}-voorbereiding`;
+ const outcomeNode=guide.querySelector('.lab-outcome'),outcome=outcomeNode.tagName==='DETAILS'?unwrapLabDisclosure(outcomeNode):outcomeNode;
  outcome.classList.add('lab-page','lab-outcome-page');
- const pages=[overview,preparation];
- const model={guide,number,title,exercises,pages,overview,preparation,outcome,steps:[],current:overview};
- labModels.set(guide.id,model);
- // The original header, workbench and work plan become the overview page.
- [...guide.children].forEach(child=>{
-  if(child===preparation||child===outcome||child.matches('.lab-exercise'))return;
-  if(child.tagName==='A'&&child.getAttribute('href')==='#labs'){child.remove();return;}
-  overview.append(child);
- });
- const intro=overview.querySelector('.lab-workbench > p');
- if(intro)intro.textContent='Voer elke stap uit in je eigen labomgeving. Onderaan ga je naar de vorige of volgende pagina. Met ‘Uitgevoerd en verder’ bewaar je de stap en ga je door.';
- overview.querySelector('.lab-workbench h4').textContent=`Aan de slag met Lab ${number}.`;
- const preparationLink=labLink('Bekijk de voorbereiding',preparation.id,'lab-preparation-link');
- overview.querySelector('.lab-workbench').append(preparationLink);
- const pageHeader=overview.querySelector(':scope > header');
- if(pageHeader){pageHeader.classList.add('lab-overview-header');pageHeader.querySelector('.lab-number').textContent=`Lab ${number}`;}
- exercises.forEach(exercise=>{
-  const steps=[...exercise.querySelectorAll('.lab-action')];
+ const model={guide,number,title,overview,preparation,outcome,pages:[overview,preparation,outcome],exercises:[],current:overview};labModels.set(guide.id,model);
+ const header=guide.querySelector(':scope > header');header.classList.add('lab-overview-header');
+ header.querySelector('.lab-number').textContent=`Lab ${number}`;
+ const countLabel=header.querySelector('.lab-meta span');if(countLabel)countLabel.textContent=number==='03'?'7 oefeningen + 3 extra':'6 oefeningen';
+ overview.append(header,labElement('p','lab-overview-intro','Kies een oefening. Elke oefening heeft een eigen begin en einde. Met Vorige en Volgende ga je door de delen van die oefening; aan het einde keer je terug naar dit overzicht.'));
+ overview.append(labLink('Voorbereiding en vereisten',preparation.id,'lab-preparation-link'));
+ const baseCards=labElement('div','lab-exercise-cards'),extraCards=labElement('div','lab-exercise-cards');
+ overview.append(labElement('h3','lab-card-group-title','Oefeningen'),baseCards);
+ if(number==='03')overview.append(labElement('h3','lab-card-group-title','Extra oefeningen'),labElement('p','lab-extra-intro','Pas toe wat je hebt geleerd. Deze opdrachten voer je zelfstandig uit.'),extraCards);
+ sourceExercises.forEach(exercise=>{
+  const key=exercise.dataset.labExercise,extra=exercise.dataset.extraExercise;
+  const label=extra?`Extra oefening ${extra}`:`Oefening ${String(key).padStart(2,'0')}`;
   const exerciseTitle=exercise.querySelector(':scope > h3').textContent;
-  const exerciseNumber=exercise.dataset.labExercise;
-  // Preserve routes to the old iOS, Android and monitoring task containers.
-  exercise.querySelectorAll('.lab-part[id], .lab-task[id]').forEach(part=>{
-   const first=part.querySelector('.lab-action');
-   if(first)labAliases.set(part.id,first.id);
+  const steps=[...exercise.querySelectorAll('.lab-action')];
+  const plan=labGrouping[number]?.[key]||steps.map(step=>[1,step.querySelector('h4').textContent.replace(/^(Uitvoeren|Resultaat controleren)/,'').trim()]);
+  if(plan.reduce((sum,[count])=>sum+count,0)!==steps.length)throw Error('Ongeldige paginagroepering voor '+exercise.id);
+  const entry={id:exercise.id,label,title:exerciseTitle,pages:[],stepIds:[],model};model.exercises.push(entry);
+  exercise.querySelectorAll('.lab-part[id],.lab-task[id]').forEach(part=>{const first=part.querySelector('.lab-action');if(first)labAliases.set(part.id,first.id);});
+  steps.forEach(step=>{
+   const input=step.querySelector('[data-lab-step]');entry.stepIds.push(input.dataset.labStep);availableStepIds.add(input.dataset.labStep);
+   step.querySelector('.lab-step-toggle').remove();step.querySelector('.lab-step-number')?.remove();step.querySelector('.lab-action-type')?.remove();
+   step.classList.add('lab-instruction');step.remove();
   });
-  steps.forEach((step,stepIndex)=>{
-   const part=step.closest('.lab-part');
-   const partTitle=part?.getAttribute('aria-label')||'';
-   step.classList.add('lab-page');step.dataset.exerciseId=exercise.id;
-   step.dataset.stepIndex=String(stepIndex+1);step.dataset.exerciseStepCount=String(steps.length);
-   const label=step.querySelector('.lab-step-toggle');
-   label.querySelector('span').textContent='Deze stap is uitgevoerd en gecontroleerd';
-   const header=step.querySelector('.lab-action-header');label.remove();
-   step._completionLabel=label;
-   header.className='lab-task-heading';
-   header.querySelector('.lab-step-number').textContent=String(stepIndex+1).padStart(2,'0');
-   const taskTitle=header.querySelector('h4');taskTitle.querySelector('.lab-action-type').textContent=partTitle?`${exerciseTitle} · ${partTitle}`:exerciseTitle;
-   // Static pages are peers, so the instruction is never nested in another card.
-   step.remove();pages.push(step);model.steps.push(step);
-  });
-  // Preparation and background belong to the exercise introduction, fully visible.
   exercise.querySelectorAll('.lab-part,.lab-task').forEach(part=>{if(part.id){const alias=labElement('span','lab-page-alias');alias.id=part.id;part.replaceWith(alias);}else part.remove();});
   exercise.querySelectorAll('details').forEach(unwrapLabDisclosure);
-  exercise.querySelectorAll('.lab-back').forEach(link=>link.remove());
-  exercise.classList.add('lab-page','lab-exercise-intro');
-  const stepStart=pages.length-steps.length;pages.splice(stepStart,0,exercise);
-  const start=labLink(`Start oefening ${String(exerciseNumber).padStart(2,'0')} →`,steps[0].id,'button red lab-exercise-start');
-  exercise.append(start);
+  exercise.querySelectorAll('.lab-back,[data-lab-exercise-progress]').forEach(node=>node.remove());
+  let offset=0;
+  plan.forEach(([count,pageTitle],partIndex)=>{
+   const page=partIndex===0?exercise:labElement('section','');page.id=partIndex===0?exercise.id:`${exercise.id}-deel-${partIndex+1}`;
+   page.classList.add('lab-page','lab-exercise-page');page.dataset.exerciseId=exercise.id;page._exercise=entry;
+   const heading=labElement('div','lab-piece-heading');
+   heading.append(labElement('p','lab-page-label',`Lab ${number} / ${label} / Deel ${partIndex+1} van ${plan.length}`));
+   if(partIndex===0){const originalTitle=exercise.querySelector(':scope > h3');heading.append(originalTitle);exercise.querySelector(':scope > .lab-number')?.remove();}
+   else heading.append(labElement('h3','',exerciseTitle));
+   heading.append(labElement('p','lab-piece-title',pageTitle));page.prepend(heading);
+   const content=labElement('div','lab-piece-content');content.append(...steps.slice(offset,offset+count));offset+=count;page.append(content);
+   entry.pages.push(page);model.pages.push(page);
+  });
+  const card=labLink('',entry.id,'lab-exercise-card');
+  card.append(labElement('span','lab-card-number',label),labElement('strong','',exerciseTitle),labElement('small','lab-card-status',`${entry.pages.length} delen · Open oefening →`));
+  (extra?extraCards:baseCards).append(card);entry.card=card;
  });
- pages.push(outcome);
+ overview.append(labLink('Eindresultaat van het lab',outcome.id,'lab-preparation-link'));
+ const storageNote=labElement('p','lab-storage-note');overview.append(storageNote);model.storageNote=storageNote;
  guide.replaceChildren();
- const flowHeader=labElement('div','lab-flow-header');
- const flowTitle=labElement('div','lab-flow-title');
+ const flowHeader=labElement('div','lab-flow-header'),flowTitle=labElement('div','lab-flow-title');
  flowTitle.append(labElement('span','lab-flow-number',`Lab ${number}`),labElement('span','lab-flow-course',title));
- const jump=labElement('select','lab-exercise-jump');jump.setAttribute('aria-label',`Ga naar een pagina van Lab ${number}`);
- const jumpOptions=[[overview.id,'Overzicht'],[preparation.id,'Voorbereiding'],...exercises.map(ex=>[ex.id,`Oefening ${String(ex.dataset.labExercise).padStart(2,'0')} · ${ex.querySelector(':scope > h3').textContent}`]),[outcome.id,'Eindresultaat']];
- jumpOptions.forEach(([id,label])=>{const option=document.createElement('option');option.value=id;option.textContent=label;jump.append(option);});
- jump.addEventListener('change',()=>navigateLab(jump.value));
- const flowStatus=labElement('p','lab-flow-status');flowStatus.setAttribute('role','status');
- const flowProgress=document.createElement('progress');flowProgress.className='lab-flow-progress';flowProgress.setAttribute('aria-label',`Voortgang Lab ${number}`);
- flowHeader.append(flowTitle,jump,flowStatus,flowProgress);guide.append(flowHeader);
- model.jump=jump;model.flowStatus=flowStatus;model.flowProgress=flowProgress;
- pages.forEach((page,pageIndex)=>{
+ const jump=labElement('select','lab-exercise-jump');jump.setAttribute('aria-label',`Kies een oefening van Lab ${number}`);
+ [[overview.id,'Laboverzicht'],[preparation.id,'Voorbereiding'],...model.exercises.map(ex=>[ex.id,`${ex.label} · ${ex.title}`]),[outcome.id,'Eindresultaat']].forEach(([id,text])=>{const option=document.createElement('option');option.value=id;option.textContent=text;jump.append(option);});
+ jump.addEventListener('change',()=>navigateLab(jump.value));flowHeader.append(flowTitle,jump);guide.append(flowHeader);model.jump=jump;
+ model.pages.forEach(page=>{
   page.dataset.labPage='';page.hidden=page!==overview;
-  const pageLabel=labElement('p','lab-page-label');
-  const exercise=page.matches('.lab-action')?exercises.find(ex=>ex.id===page.dataset.exerciseId):page.matches('.lab-exercise')?page:null;
-  if(page.matches('.lab-action')){
-   pageLabel.textContent=`Lab ${number} / Oefening ${String(exercise.dataset.labExercise).padStart(2,'0')} / Stap ${page.dataset.stepIndex} van ${page.dataset.exerciseStepCount}`;
-  }else{pageLabel.textContent=`Lab ${number} / ${page===overview?'Overzicht':page===preparation?'Voorbereiding':page===outcome?'Eindresultaat':'Oefening '+String(exercise.dataset.labExercise).padStart(2,'0')}`;}
-  page.prepend(pageLabel);
-  // Every page has its own bottom navigation; next never requires opening a panel.
-  const footer=labElement('footer','lab-page-footer');
-  if(page._completionLabel)footer.append(page._completionLabel);
-  const navigation=labElement('nav','lab-page-navigation');navigation.setAttribute('aria-label','Pagina’s van het lab');
-  navigation.append(labLink(pageIndex?'← Vorige':'← Alle labs',pageIndex?pages[pageIndex-1].id:'labs','lab-previous'));
-  navigation.append(labElement('span','lab-page-counter',`Pagina ${pageIndex+1} / ${pages.length}`));
-  const next=pages[pageIndex+1];
-  if(next){
-   const nextLink=labLink('Volgende →',next.id,'lab-next');
-   if(page._completionLabel){
-    const complete=labElement('button','lab-complete-next','Uitgevoerd en verder →');complete.type='button';
-    complete.addEventListener('click',()=>{
-     const checkbox=page.querySelector('[data-lab-step]');checkbox.checked=true;checkbox.dispatchEvent(new Event('change'));navigateLab(next.id);
-    });
-    footer.append(complete);page._completeNext=complete;
+  const entry=page._exercise;
+  if(!entry)page.prepend(labElement('p','lab-page-label',`Lab ${number} / ${page===overview?'Overzicht':page===preparation?'Voorbereiding':'Eindresultaat'}`));
+  const footer=labElement('footer','lab-page-footer'),navigation=labElement('nav','lab-page-navigation');navigation.setAttribute('aria-label',entry?`Delen van ${entry.label}`:'Laboverzicht');
+  if(entry){
+   const partIndex=entry.pages.indexOf(page),previous=entry.pages[partIndex-1],next=entry.pages[partIndex+1];
+   navigation.append(labLink(previous?'← Vorige':`← Lab ${number}`,previous?.id||overview.id,'lab-previous'),labElement('span','lab-page-counter',`Deel ${partIndex+1} / ${entry.pages.length}`));
+   if(next)navigation.append(labLink('Volgende →',next.id,'lab-next'));
+   else{
+    const complete=labElement('button','lab-complete-exercise','Oefening uitgevoerd');complete.type='button';
+    complete.addEventListener('click',()=>{entry.stepIds.forEach(id=>labDone.add(id));saveLab();navigateLab(overview.id);});
+    footer.append(complete);navigation.append(labLink('Naar overzicht →',overview.id,'lab-next'));
    }
-   navigation.append(nextLink);
-  }else{navigation.append(labLink('Naar alle labs →','labs','lab-next'));}
+  }else{
+   const back=labElement('a','lab-previous',page===overview?'← Alle labs':`← Lab ${number}`);back.href=page===overview?(location.protocol==='file:'?'#labs':'/md102/#labs'):'#'+overview.id;navigation.append(back);
+  }
   footer.append(navigation);page.append(footer);guide.append(page);
  });
 });
-
-// A compact toolbar replaces the course sidebar while working in a lab.
-const labToolbar=labElement('nav','lab-app-toolbar');labToolbar.setAttribute('aria-label','Labwerkboek');
-labToolbar.hidden=true;
-labToolbar.append(labLink('← Cursus','home','lab-course-back'),labElement('span','lab-app-brand','MD-102 / LABWERKBOEK'),labLink('Alle labs','labs','lab-library-link'));
-const openWindow=labElement('button','lab-open-window','Open als werkvenster ↗');openWindow.type='button';
-openWindow.addEventListener('click',()=>{
- const workWindow=window.open(location.href,'_blank','popup,width=680,height=900');
- // Same-origin windows inherit the course session; detach after creation.
- if(workWindow)workWindow.opener=null;
-});
+const labToolbar=labElement('nav','lab-app-toolbar');labToolbar.setAttribute('aria-label','Labwerkboek');labToolbar.hidden=true;
+const courseBack=labElement('a','lab-course-back','← Cursus');courseBack.href=location.protocol==='file:'?'#home':'/md102/';
+const libraryLink=labElement('a','lab-library-link','Alle labs');libraryLink.href=location.protocol==='file:'?'#labs':'/md102/#labs';
+labToolbar.append(courseBack,labElement('span','lab-app-brand','MD-102 / LABWERKBOEK'),libraryLink);
+const openWindow=labElement('button','lab-open-window','Open als werkvenster ↗');openWindow.type='button';openWindow.addEventListener('click',()=>{const workWindow=window.open(location.href,'_blank','popup,width=680,height=900');if(workWindow)workWindow.opener=null;});
 labToolbar.append(openWindow);$('#environment').prepend(labToolbar);
-
 function navigateLab(id){
  const target=document.getElementById(id);if(!target)return;
- history.pushState(null,'','#'+id);const destination=revealTarget(target)||target;
- destination.scrollIntoView({behavior:'instant',block:'start'});
- const heading=destination.querySelector('h1,h2,h3,h4');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
- setActive('labs');
+ history.pushState(null,'','#'+id);const destination=revealTarget(target)||target;destination.scrollIntoView({behavior:'instant',block:'start'});
+ const heading=destination.querySelector('h1,h2,h3,h4');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}setActive('labs');
 }
 function selectLab(id,target){
  labGuides.forEach(guide=>guide.hidden=guide.id!==id);
- $$('[data-lab-select]').forEach(link=>{const selected=link.dataset.labSelect===id;link.classList.toggle('selected',selected);if(selected)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');});
- const model=labModels.get(id);$('#labs').classList.toggle('lab-is-selected',!!model);
- if(!model)return null;
- const page=target?.closest('[data-lab-page]')||model.overview;
- model.pages.forEach(item=>item.hidden=item!==page);model.current=page;
- model.jump.value=page.dataset.exerciseId||page.id;
- if(page.matches('.lab-action')){
-  labPositions[id]=page.id;
-  try{localStorage.setItem(labPositionKey,JSON.stringify(labPositions));}catch{}
- }
+ const model=labModels.get(id);$('#labs').classList.toggle('lab-is-selected',!!model);if(!model)return null;
+ const labPath=`/md102/lab-${model.number}/`;if(location.protocol!=='file:'&&location.pathname!==labPath)history.replaceState(null,'',labPath+location.hash);
+ const page=target?.closest('[data-lab-page]')||model.overview;model.pages.forEach(item=>item.hidden=item!==page);model.current=page;model.jump.value=page.dataset.exerciseId||page.id;
+ if(page._exercise){labPositions[page._exercise.id]=page.id;try{localStorage.setItem(labPositionKey,JSON.stringify(labPositions));}catch{}updateLab();}
  return page;
 }
 function revealTarget(target){
  const alias=labAliases.get(target.id);if(alias)target=document.getElementById(alias);
  const section=target.closest('.main-inner > section');
- if(section){contentSections.forEach(item=>{
+ if(section)contentSections.forEach(item=>{
   const pathIntro=section.matches('section[data-module]')&&item.id==='lp'+section.dataset.learningPath;
   const pathModule=section.matches('[data-path]')&&item.matches('section[data-module]')&&item.dataset.learningPath===section.dataset.path;
   item.hidden=item!==section&&!pathIntro&&!pathModule;
- });}
+ });
  const isLab=section?.id==='labs';document.body.classList.toggle('lab-active',isLab);labToolbar.hidden=!isLab;
- const guide=target.closest('.lab-guide');
- if(isLab){const page=selectLab(guide?.id,target);if(page&&!page.contains(target))target=page;}
- let node=target;while(node){if(node.tagName==='DETAILS')node.open=true;node=node.parentElement;}
- return target;
+ if(isLab){const page=selectLab(target.closest('.lab-guide')?.id,target);if(page&&!page.contains(target))target=page;}
+ let node=target;while(node){if(node.tagName==='DETAILS')node.open=true;node=node.parentElement;}return target;
 }
-const labSteps=$$('[data-lab-step]');
-try{const saved=JSON.parse(localStorage.getItem(labKey)||'[]');if(Array.isArray(saved))labDone=new Set(saved.filter(id=>labSteps.some(input=>input.dataset.labStep===id)));}catch{labStorage=false;}
+try{const saved=JSON.parse(localStorage.getItem(labKey)||'[]');if(Array.isArray(saved))labDone=new Set(saved.filter(id=>availableStepIds.has(id)));}catch{labStorage=false;}
 try{const saved=JSON.parse(localStorage.getItem(labPositionKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))labPositions=saved;}catch{}
 function updateLab(){
- labSteps.forEach(input=>{
-  input.checked=labDone.has(input.dataset.labStep);const page=input.closest('.lab-action');page.classList.toggle('is-done',input.checked);
-  if(page._completeNext)page._completeNext.textContent=input.checked?'Verder →':'Uitgevoerd en verder →';
- });
  labModels.forEach(model=>{
-  let finished=0;const {guide,steps,exercises}=model;
-  exercises.forEach(ex=>{
-   const inputs=steps.filter(step=>step.dataset.exerciseId===ex.id).map(step=>step.querySelector('[data-lab-step]'));
-   const done=inputs.filter(i=>i.checked).length,complete=inputs.length>0&&done===inputs.length;finished+=Number(complete);
-   ex.classList.toggle('is-done',complete);
-   ex.querySelector('[data-lab-exercise-progress]').textContent=complete?`✓ Oefening ${String(ex.dataset.labExercise).padStart(2,'0')} afgerond · ${done}/${inputs.length}`:`${done} van ${inputs.length} stappen uitgevoerd`;
-   const status=guide.querySelector(`[data-lab-toc-status="${ex.dataset.labExercise}"]`);
-   if(status){status.textContent=complete?'✓ Afgerond':`${done}/${inputs.length} stappen`;status.closest('a').classList.toggle('is-done',complete);}
+  model.exercises.forEach(entry=>{
+   const done=entry.stepIds.every(id=>labDone.has(id));entry.card.classList.toggle('is-done',done);
+   entry.card.querySelector('.lab-card-status').textContent=done?'Uitgevoerd · Bekijk oefening →':`${entry.pages.length} delen · Open oefening →`;
+   const remembered=document.getElementById(labPositions[entry.id]||labPositions[model.guide.id]||'');
+   const savedPage=remembered?.closest('[data-lab-page]');const resumeIndex=entry.pages.indexOf(savedPage);entry.card.href='#'+(!done&&resumeIndex>0?savedPage.id:entry.id);
+   if(!done&&resumeIndex>0)entry.card.querySelector('.lab-card-status').textContent=`${entry.pages.length} delen · Verder met deel ${resumeIndex+1} →`;
   });
-  const count=steps.filter(step=>step.querySelector('[data-lab-step]').checked).length,total=steps.length;
-  const status=`${count} van ${total} stappen uitgevoerd · ${finished} van ${exercises.length} oefeningen afgerond`;
-  guide.querySelector('[data-lab-total-status]').textContent=status;model.flowStatus.textContent=status;
-  const bar=guide.querySelector('[data-lab-progress]');bar.max=total;bar.value=count;model.flowProgress.max=total;model.flowProgress.value=count;
-  const first=steps.find(step=>!step.querySelector('[data-lab-step]').checked);
-  const remembered=steps.find(step=>step.id===labPositions[guide.id]&&!step.querySelector('[data-lab-step]').checked);
-  const resume=guide.querySelector('[data-lab-resume]');resume.href='#'+(remembered||first||model.outcome).id;
-  resume.textContent=count===total?'Bekijk het eindresultaat →':remembered||count?'Verder waar je was →':'Start de eerste stap →';
-  guide.querySelector('.lab-storage-note').textContent=labStorage?'Je voortgang wordt automatisch bewaard in deze browser.':'Je browser blokkeert opslag. Je voortgang blijft alleen tijdens dit bezoek bewaard.';
-  const card=$(`[data-lab-select="${guide.id}"] [data-lab-card-progress]`);if(card)card.textContent=`${count}/${total} stappen · ${finished}/${exercises.length} oefeningen`;
+  model.storageNote.textContent=labStorage?'Je plek binnen elke oefening wordt bewaard in deze browser.':'Browseropslag is geblokkeerd. Je plek blijft alleen tijdens dit bezoek bewaard.';
  });
 }
-function saveLab(){try{localStorage.setItem(labKey,JSON.stringify([...labDone]));labStorage=true;}catch{labStorage=false;announce('Je browser blokkeert opslag. Je voortgang blijft alleen tijdens dit bezoek bewaard.');}updateLab();}
-labSteps.forEach(input=>input.addEventListener('change',()=>{if(input.checked)labDone.add(input.dataset.labStep);else labDone.delete(input.dataset.labStep);saveLab();}));
-$$('[data-lab-reset]').forEach(button=>button.addEventListener('click',()=>{
- const guide=button.closest('.lab-guide'),label='Lab '+guide.dataset.labGuide;
- if(!confirm(`Wil je de uitgevoerde stappen van ${label} wissen? Andere labs en je theorievoortgang blijven behouden.`))return;
- labModels.get(guide.id).steps.forEach(step=>labDone.delete(step.querySelector('[data-lab-step]').dataset.labStep));delete labPositions[guide.id];
- try{localStorage.setItem(labPositionKey,JSON.stringify(labPositions));}catch{}
- saveLab();announce(`De voortgang van ${label} is gewist.`);
-}));
-window.addEventListener('storage',event=>{if(event.key===labKey){try{const ids=JSON.parse(event.newValue||'[]');if(Array.isArray(ids)){labDone=new Set(ids.filter(id=>labSteps.some(input=>input.dataset.labStep===id)));updateLab();}}catch{}}});
+function saveLab(){try{localStorage.setItem(labKey,JSON.stringify([...labDone]));labStorage=true;}catch{labStorage=false;announce('Je browser blokkeert opslag. Je gegevens blijven alleen tijdens dit bezoek bewaard.');}updateLab();}
+window.addEventListener('storage',event=>{if(event.key===labKey){try{const ids=JSON.parse(event.newValue||'[]');if(Array.isArray(ids)){labDone=new Set(ids.filter(id=>availableStepIds.has(id)));updateLab();}}catch{}}});
 window.addEventListener('hashchange',()=>{const target=document.getElementById(location.hash.slice(1));if(target){const destination=revealTarget(target)||target;destination.scrollIntoView({block:'start'});}});
+const labRoute=location.pathname.match(/\/md102\/lab-(03|04)\/?$/);
+if(labRoute&&!location.hash)history.replaceState(null,'',`#lab-lp${labRoute[1]==='03'?'3':'4'}-${labRoute[1]}`);
 updateLab();revealTarget($('#home'));
 // lab-workspace:end
 
