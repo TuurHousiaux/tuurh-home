@@ -38,3 +38,7 @@ npm run preview
 
 De paden worden in productie door de afzonderlijke `tuurh-router` Cloudflare
 Worker naar de juiste Azure Static Web App gestuurd.
+
+## MD-102 leeromgeving
+
+De Nederlandstalige cursus staat op `/md102/` en wordt samen met de homepage gepubliceerd. De bron is `../md102/docs/index.html`; het inline script is voor de bestaande Content Security Policy afgesplitst naar `src/md102/app.js`. Neem bij cursusupdates beide bestanden opnieuw over. Het cursuswachtwoord wordt via het bestaande cursuskanaal gedeeld.
