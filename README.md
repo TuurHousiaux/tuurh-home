@@ -47,7 +47,7 @@ De Nederlandstalige cursus staat op `/md102/` en wordt samen met de homepage gep
 
 Lab 03 staat op `/md102/lab-03/` en Lab 04 op `/md102/lab-04/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
 
-Elke oefening heeft een eigen korte reeks pagina’s. Vorige en Volgende blijven binnen die oefening. De laatste pagina keert terug naar het laboverzicht en heeft één knop Oefening uitgevoerd. Kleine configuratiestappen zijn per werkfase gecombineerd; losse vinkjes en tellers voor uitgevoerde stappen zijn verwijderd. Bestaande instructie-ID’s en opgeslagen bevestigingen blijven geldig, en de laatst bekeken pagina wordt per oefening onthouden.
+Elke oefening staat volledig op één pagina, met alle opdrachten en controles onder elkaar. Onderaan staan Oefening uitgevoerd en een link naar het laboverzicht. Deelaanduidingen, paginatellers en Vorige/Volgende binnen oefeningen zijn verwijderd. Bestaande instructie-ID’s, links naar voormalige deelpagina’s en opgeslagen bevestigingen blijven geldig.
 
 De cursuszijbalk verdwijnt tijdens het werken. Open als werkvenster opent de huidige pagina in een smal venster met behoud van de cursusaanmelding. Zoeken vindt ook de extra oefeningen.
 

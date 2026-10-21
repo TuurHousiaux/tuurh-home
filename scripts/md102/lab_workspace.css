@@ -112,7 +112,7 @@ body.lab-active{background:var(--bmu-blue-dark)}
  .lab-toc-status{grid-column:2;justify-self:start}
 }
 @media print{.lab-app-toolbar,.lab-flow-header,.lab-page-footer{display:none!important}.main-inner>section[hidden],.lab-guide[hidden],[data-lab-page][hidden]{display:block!important}.lab-page{break-before:page;box-shadow:none;color:black}.lab-active .main-inner{max-width:none}}
-/* Exercises have their own short page sequence and a single confirmation. */
+/* Each exercise shows its complete instructions on a single page. */
 .lab-card-group-title{font-size:1.2rem!important;margin:32px 0 16px!important;color:var(--bmu-blue-dark)}
 .lab-exercise-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0 30px}
 .lab-exercise-card{display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid var(--bmu-border);border-left:4px solid var(--bmu-blue-dark);border-radius:6px;text-decoration:none;background:#f7f9fc;min-width:0}
@@ -138,4 +138,4 @@ body.lab-active{background:var(--bmu-blue-dark)}
 .lab-page .lab-complete-exercise:hover{background:#a91c35}
 @media(max-width:760px){.lab-exercise-cards{grid-template-columns:1fr}.lab-exercise-card{padding:18px}.lab-piece-title{font-size:.95rem}}
 
-.lab-piece-content>.lab-instruction:only-child>.lab-action-header{display:none}
+.lab-exercise-page .lab-page-navigation{display:flex;justify-content:flex-start}

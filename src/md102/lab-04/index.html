@@ -129,7 +129,7 @@ body.lab-active{background:var(--bmu-blue-dark)}
  .lab-toc-status{grid-column:2;justify-self:start}
 }
 @media print{.lab-app-toolbar,.lab-flow-header,.lab-page-footer{display:none!important}.main-inner>section[hidden],.lab-guide[hidden],[data-lab-page][hidden]{display:block!important}.lab-page{break-before:page;box-shadow:none;color:black}.lab-active .main-inner{max-width:none}}
-/* Exercises have their own short page sequence and a single confirmation. */
+/* Each exercise shows its complete instructions on a single page. */
 .lab-card-group-title{font-size:1.2rem!important;margin:32px 0 16px!important;color:var(--bmu-blue-dark)}
 .lab-exercise-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0 30px}
 .lab-exercise-card{display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid var(--bmu-border);border-left:4px solid var(--bmu-blue-dark);border-radius:6px;text-decoration:none;background:#f7f9fc;min-width:0}
@@ -155,7 +155,7 @@ body.lab-active{background:var(--bmu-blue-dark)}
 .lab-page .lab-complete-exercise:hover{background:#a91c35}
 @media(max-width:760px){.lab-exercise-cards{grid-template-columns:1fr}.lab-exercise-card{padding:18px}.lab-piece-title{font-size:.95rem}}
 
-.lab-piece-content>.lab-instruction:only-child>.lab-action-header{display:none}
+.lab-exercise-page .lab-page-navigation{display:flex;justify-content:flex-start}
 /* lab-workspace:end */
 </style></head><body>
 <section id="login" class="login" aria-labelledby="login-title"><div class="login-story"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><h1>Meer grip op<br>elke werkplek.</h1><p>Van de eerste inschrijving tot een veilige cloudwerkplek. Bouw stap voor stap aan je expertise als endpointbeheerder.</p><div class="login-number"><div><strong>08</strong><span>Learning Paths</span></div><div><strong>34</strong><span>modules</span></div><div><strong>Jouw</strong><span>volgende stap</span></div></div></div><div class="login-panel"><form id="login-form" class="login-card"><span class="wordmark" aria-label="BoostMeUp"><span>Boost</span><span class="me">Me</span><span class="up">Up</span><i aria-hidden="true"></i></span><span class="badge">Microsoft 365 · MD-102</span><h2 id="login-title">MD-102 Leeromgeving</h2><p class="muted">Voer het wachtwoord in om verder te gaan</p><label for="password">Wachtwoord</label><input type="password" id="password" autocomplete="current-password" required aria-describedby="login-error"><p id="login-error" class="login-error" role="alert" hidden></p><button class="button red" type="submit">Aanmelden <span aria-hidden="true">→</span></button><p class="login-note">Leer op je eigen tempo. Je modulevoortgang wordt in deze browser bewaard.</p></form></div></section><noscript><p class="noscript">Schakel JavaScript in om aan te melden, te navigeren en je voortgang bij te houden.</p></noscript>
