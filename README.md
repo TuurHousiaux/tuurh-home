@@ -45,11 +45,13 @@ De Nederlandstalige cursus staat op `/md102/` en wordt samen met de homepage gep
 
 ### Labs en zelfstandige oefeningen
 
-Lab 03 staat op `/md102/lab-03/` en Lab 04 op `/md102/lab-04/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
+Lab 03 staat op `/md102/lab-03/`, Lab 04 op `/md102/lab-04/` en Lab 05 op `/md102/lab-05/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
 
 Elke oefening staat volledig op één pagina, met alle opdrachten en controles onder elkaar. Onderaan staan Oefening uitgevoerd en een link naar het laboverzicht. Deelaanduidingen, paginatellers en Vorige/Volgende binnen oefeningen zijn verwijderd. Bestaande instructie-ID’s, links naar voormalige deelpagina’s en opgeslagen bevestigingen blijven geldig.
 
 De cursuszijbalk verdwijnt tijdens het werken. Open als werkvenster opent de huidige pagina in een smal venster met behoud van de cursusaanmelding. Zoeken vindt ook de extra oefeningen.
+
+Lab 05 bevat vijf oefeningen over Graph PowerShell, Remediations, Pharmacy Helpdesk-delegatie, auditlogs en ingebouwde rapporten. De aangeleverde tekst en PowerShell-voorbeelden staan in `scripts/md102/lab05.md`; `lab05.py` zet die om naar het bestaande werkboekformaat.
 
 Bewerk de extra opdrachten in `scripts/md102/lab03_extra.py`, Lab 04 in `scripts/md102/lab04.py` en de werkruimte in `scripts/md102/lab_workspace.js` en `.css`. De updater bouwt ook de afzonderlijke labpagina’s:
 
