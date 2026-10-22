@@ -3,6 +3,7 @@
 from pathlib import Path
 from lab04 import render_lab04
 from lab05 import render_lab05
+from lab06 import render_lab06
 from lab03_extra import render_lab03_extra
 
 HERE = Path(__file__).resolve().parent
@@ -28,6 +29,18 @@ html = replace_between(html, '<!-- lab04:start -->', '<!-- lab04:end -->', rende
 if '<!-- lab05:start -->' not in html:
     html = html.replace('<!-- lab04:end -->', '<!-- lab04:end --><!-- lab05:start --><!-- lab05:end -->')
 html = replace_between(html, '<!-- lab05:start -->', '<!-- lab05:end -->', render_lab05())
+if '<!-- lab06:start -->' not in html:
+    html = html.replace('<!-- lab05:end -->', '<!-- lab05:end --><!-- lab06:start --><!-- lab06:end -->')
+html = replace_between(html, '<!-- lab06:start -->', '<!-- lab06:end -->', render_lab06())
+if 'data-lab-select="lab-lp6-06"' not in html:
+    marker = '</nav><div id="lab-cards"'
+    assert html.count(marker) == 1
+    html = html.replace(marker, '<a href="/md102/lab-06/" data-lab-select="lab-lp6-06"><span class="lab-number">Lab 06 · 5 oefeningen · Laatste lab</span><strong>Mogelijkheden uitbreiden</strong><small data-lab-card-progress>Voortgang laden…</small></a>' + marker)
+if 'class="nav-lab" href="/md102/lab-06/"' not in html:
+    marker = '<a class="nav-special" href="#bronnen">'
+    assert html.count(marker) == 1
+    html = html.replace(marker, '<a class="nav-lab" href="/md102/lab-06/">Lab 06 · Mogelijkheden uitbreiden</a>' + marker)
+
 if 'data-lab-select="lab-lp5-05"' not in html:
     marker = '</nav><div id="lab-cards"'
     assert html.count(marker) == 1
@@ -47,7 +60,7 @@ html = html.replace('class="nav-lab" href="#lab-lp3-03"', 'class="nav-lab" href=
 html = html.replace('class="nav-lab" href="#lab-lp4-04"', 'class="nav-lab" href="/md102/lab-04/"')
 html = html.replace('Lab 03 · 7 oefeningen</span>', 'Lab 03 · 7 oefeningen + 3 extra</span>')
 page.write_text(html)
-for number, title in [('03', 'Applicaties beheren'), ('04', 'Toestellen beveiligen'), ('05', 'Automatiseren en operationeel beheren')]:
+for number, title in [('03', 'Applicaties beheren'), ('04', 'Toestellen beveiligen'), ('05', 'Automatiseren en operationeel beheren'), ('06', 'Mogelijkheden uitbreiden')]:
     directory=SITE / ('lab-' + number)
     directory.mkdir(exist_ok=True)
     standalone=html.replace('<title>MD-102 Leeromgeving | BoostMeUp</title>', '<title>Lab ' + number + ' · ' + title + ' | MD-102</title>')

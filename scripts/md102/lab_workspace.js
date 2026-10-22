@@ -21,7 +21,7 @@ labGuides.forEach((guide,index)=>{
  const number=guide.dataset.labGuide||String(index+3).padStart(2,'0');guide.dataset.labGuide=number;
  const title=guide.querySelector(':scope > header h3').textContent;
  const sourceExercises=[...guide.querySelectorAll('[data-lab-exercise]')];
- const librarySummary=$(`[data-lab-select="${guide.id}"] small`);if(librarySummary){librarySummary.textContent=number==='03'?'Applicatiebeheer en zelfstandige extra opdrachten':number==='04'?'Beveiliging, Microsoft Tunnel en Cloud PKI':'Graph PowerShell, Remediations, delegatie en rapporten';librarySummary.removeAttribute('data-lab-card-progress');}
+ const librarySummary=$(`[data-lab-select="${guide.id}"] small`);if(librarySummary){librarySummary.textContent=number==='03'?'Applicatiebeheer en zelfstandige extra opdrachten':number==='04'?'Beveiliging, Microsoft Tunnel en Cloud PKI':number==='05'?'Graph PowerShell, Remediations, delegatie en rapporten':'Laatste lab · EPM, Remote Help, Analytics, Windows 365 en AVD';librarySummary.removeAttribute('data-lab-card-progress');}
  const overview=labElement('section','lab-page lab-overview');overview.id=`lab${number}-overzicht`;
  const preparation=unwrapLabDisclosure(guide.querySelector('.lab-preparation'));preparation.className='lab-page lab-preparation-page';preparation.id=`lab${number}-voorbereiding`;
  const outcomeNode=guide.querySelector('.lab-outcome'),outcome=outcomeNode.tagName==='DETAILS'?unwrapLabDisclosure(outcomeNode):outcomeNode;
@@ -131,6 +131,6 @@ function updateLab(){
 function saveLab(){try{localStorage.setItem(labKey,JSON.stringify([...labDone]));labStorage=true;}catch{labStorage=false;announce('Je browser blokkeert opslag. Je gegevens blijven alleen tijdens dit bezoek bewaard.');}updateLab();}
 window.addEventListener('storage',event=>{if(event.key===labKey){try{const ids=JSON.parse(event.newValue||'[]');if(Array.isArray(ids)){labDone=new Set(ids.filter(id=>availableStepIds.has(id)));updateLab();}}catch{}}});
 window.addEventListener('hashchange',()=>{const target=document.getElementById(location.hash.slice(1));if(target){const destination=revealTarget(target)||target;destination.scrollIntoView({block:'start'});}});
-const labRoute=location.pathname.match(/\/md102\/lab-(03|04|05)\/?$/);
+const labRoute=location.pathname.match(/\/md102\/lab-(03|04|05|06)\/?$/);
 if(labRoute&&!location.hash)history.replaceState(null,'',`#lab-lp${Number(labRoute[1])}-${labRoute[1]}`);
 updateLab();revealTarget($('#home'));

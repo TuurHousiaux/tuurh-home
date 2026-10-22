@@ -45,7 +45,7 @@ De Nederlandstalige cursus staat op `/md102/` en wordt samen met de homepage gep
 
 ### Labs en zelfstandige oefeningen
 
-Lab 03 staat op `/md102/lab-03/`, Lab 04 op `/md102/lab-04/` en Lab 05 op `/md102/lab-05/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
+Lab 03 staat op `/md102/lab-03/`, Lab 04 op `/md102/lab-04/`, Lab 05 op `/md102/lab-05/` en Lab 06 op `/md102/lab-06/`. Elk lab heeft een eigen overzicht. Lab 03 bevat zeven basisoefeningen en drie extra oefeningen: Firefox als Win32-app implementeren, Required versus Available en een applicatie verwijderen.
 
 Elke oefening staat volledig op één pagina, met alle opdrachten en controles onder elkaar. Onderaan staan Oefening uitgevoerd en een link naar het laboverzicht. Deelaanduidingen, paginatellers en Vorige/Volgende binnen oefeningen zijn verwijderd. Bestaande instructie-ID’s, links naar voormalige deelpagina’s en opgeslagen bevestigingen blijven geldig.
 
@@ -61,3 +61,5 @@ npm run build
 ```
 
 De updater werkt zonder de oorspronkelijke PowerPoint-decks. De configuratiewaarden in Lab 04 volgen de aangeleverde labtekst; deze toevoeging is geen herziening van de Microsoft-productinstellingen.
+
+Lab 06: Mogelijkheden uitbreiden is het laatste lab, met vijf oefeningen over EPM, Remote Help, Advanced Analytics en Device Query, Windows 365 en Azure Virtual Desktop. De volledige aangeleverde inhoud staat in `scripts/md102/lab06.md`; `lab06.py` gebruikt de gedeelde werkboekrenderer. PowerShell- en KQL-voorbeelden behouden hun eigen taalmarkering.
